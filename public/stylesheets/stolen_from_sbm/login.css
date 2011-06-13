@@ -1,0 +1,20 @@
+#signin_menu
+{
+    padding-right:0px;
+    margin:0;
+    border-top:0px;
+    background:url(/images/form_bg.jpg) center repeat;
+    border-left:solid 1px #91abbc;
+    border-right:solid 1px #91abbc;
+    border-bottom:solid 1px #91abbc;
+    float:right;
+    width:300px;
+    display:none;
+    position:absolute;
+    right:0px;
+}
+
+#signin_menu .menu_open
+{
+    display:inline;
+}

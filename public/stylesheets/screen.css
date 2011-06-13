@@ -1,0 +1,189 @@
+body
+{
+        font: 100% Verdana, Arial, Helvetica, sans-serif;
+        background: url(/images/bg.jpg) center repeat;
+        margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+        padding: 0;
+        text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+        color: #000000;
+        height: 100%;
+}
+a
+{
+        color: Red;
+        text-decoration: none;
+}
+a:hover
+{
+        color: Red;
+        text-decoration: underline;
+}
+.oneColFixCtrHdr #container
+{        width: 980px; /* using 20px less than a full 800px width allows for brow
+ser chrome and avoids a horizontal scroll bar */
+        margin: 0 auto; /* the auto margins (in conjunction with a width) center the page */ /*border: 1px solid #000000;*/
+        height: 100%;
+        text-align: left; /* this overrides the text-align: center on the body e
+lement. */
+}
+.oneColFixCtrHdr #header
+{
+        height: 106px;
+        width: 100%;
+        padding: 0 0 0 0px; /* this padding matches the left alignment of the elements in the divs that appear beneath it. If an image is used in the #header instead of text, you may want to remove the padding. */
+}
+.oneColFixCtrHdr #header h1
+
+        margin: 0; /* zeroing the margin of the last element in the #header div 
+will avoid margin collapse - an unexplainable space between divs. If the div has
+ a border around it, this is not necessary as that also avoids the margin collap
+se */
+        padding: 0 0; /* using padding instead of margin will allow you to keep 
+the element away from the edges of the div */
+}
+.oneColFixCtrHdr #mainContent
+{
+        padding: 0 0px; /* remember that padding is the space inside the div box and margin is the space outside the div box */
+        background: url(/images/bg.jpg) center repeat;
+        height: 100%;
+}
+.oneColFixCtrHdr #footer
+{
+        margin-top: 10px;
+        float: left;
+        height: 244px;
+        width: 100%;
+        padding: 0 0px; /* this padding matches the left alignment of the elements in the divs that appear above it. */
+        background: url(/images/tail_bottom.jpg) left repeat-x;
+
+}
+.oneColFixCtrHdr #footer p
+{
+        margin: 0; /* zeroing the margins of the first element in the footer will avoid the possibility of margin collapse - a space between divs */
+        padding: 10px 0; /* padding on this element will create space, just as the the margin would have, without the margin collapse issue */
+}
+/*************************HEADER ELEMENTS*************************/
+.logo
+{
+	float: left;
+	width: 230px;
+	padding-top: 30px;
+	padding-left: 0px;
+}
+.nav
+{
+	float: right;
+	width: 740px;
+	padding-top: 77px;
+	padding-right: 377px;
+	text-align: right;
+}
+.topnav
+{
+       padding-bottom: 20px;
+}
+.mainbar
+{
+	float: right;
+	text-align: right;
+	width: 100%;
+	margin: 0px;
+        background: url(/images/blue_gradient.jpg) left repeat-x;
+        background-size: 100%;
+}
+.mainnav
+{
+	float: right;
+	text-align: right;
+        padding-right: 357px;
+	margin: 0px;
+}
+.login
+{
+	text-align: right;
+	font-size: 12px;
+}
+.login_control
+{
+	display: none;
+	background-color: white;
+	position: absolute;
+	left: 200px;
+	z-index: 1000;
+}
+.header_container
+{
+	width: 970px;
+	margin: auto;
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin-left: -470px;
+	z-index: 999;
+}
+.signin
+{
+	cursor: pointer;
+}
+/*******************************Login Form***************************************/
+.login_page
+{
+	margin: 0 auto;
+	width: 465px;
+	margin-top: 25px;
+	text-align: center;
+	margin-bottom: 100px;
+	height: 500px;
+}
+.login_header
+{
+	text-align: left;
+	font-family: Arial;
+	font-weight: bolder;
+	font-size: 20px;
+	padding-top: 10px;
+	padding-left: 15px;
+	height: 30px;
+	width: 465px;
+	background-color: #ffe76a;
+	border: solid 1px #a9a6a6;
+}
+.login_body
+{
+	text-align: left;
+	font-family: Arial;
+	font-size: 13px;
+	margin: 3px auto 0px auto;
+	padding-top: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	width: 435px;
+	background-color: White;
+	border: solid 1px #a9a6a6;
+}
+.login_form_control
+{
+	margin: 3px auto 0px auto;
+	font-family: Arial;
+}
+/***********************FOOTER ELEMENTS***************************/
+.footer_content
+{
+	padding-top: 25px;
+	font: 12px Arial, Helvetica, sans-serif;
+	color: White;
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+
+}
+.footer_content a
+{
+	text-decoration: none;
+	color: white;
+}
+.footer_content a:hover
+{
+	text-decoration: underline;
+}
+

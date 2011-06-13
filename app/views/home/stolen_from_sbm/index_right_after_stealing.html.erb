@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><title>
+	StorageByMail is a Unique Alternative to Traditional Self Storage and Mini Storage.  We take the Self out of Self Storage!
+</title><link href="/css/style.css" rel="stylesheet" type="text/css" /><link href="/css/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
+
+    <script src="/js/jquery.js" type="text/javascript"></script>
+
+    <link href="css/login.css" rel="stylesheet" type="text/css" />
+
+    <script src="/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+    <script src="/js/jquery-vsdoc.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".signin").click(function(e) {
+                e.preventDefault();
+                $("fieldset#signin_menu").toggle();
+                $(".signin").toggleClass("menu-open");
+            });
+
+            $("fieldset#signin_menu").mouseup(function() {
+                return false
+            });
+            $(document).mouseup(function(e) {
+                if ($(e.target).parent("a.signin").length == 0) {
+                    $(".signin").removeClass("menu-open");
+                    $("fieldset#signin_menu").hide();
+                }
+            });
+
+        });
+    </script>
+
+</head>
+<body class="oneColFixCtrHdr">
+    <form name="form1" method="post" action="Default.aspx" onsubmit="javascript:return WebForm_OnSubmit();" id="form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTIxNDA4ODA2NzEPZBYCAgMPZBYCAgEPZBYCZg9kFgICDQ8QDxYCHgdDaGVja2VkaGRkZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFEUxvZ2luMSRSZW1lbWJlck1lzg/VkP+cV4IRmvhnLNLZOmVSqQY=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=Q6KDhL7hGLV7nKb1Q2XYuY4Ha2na53Oe0CkHafJrzGHqu4KtYULuESxKbMtDjF6deewnvfzCimMTViSVQdDqGn_8aCQ1&amp;t=634210184612724343" type="text/javascript"></script>
+
+
+<script src="/WebResource.axd?d=x83u-T_IGcf4t58tprKIo6_yWaXV9sAbQsUSKzb20fvnE6gmZ089KXzlwOYMosdQke_1LCUDdfFIQQVGbSafHcqluIA1&amp;t=634210184612724343" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBQKujv+6BwKUvNa1DwL666vYDAKC0q+kBgKnz4ybCNUC+AvKvKn64WUNxy1AABfpbmeY" />
+</div>
+    <div id="header">
+        <div class="header_container">
+            <div class="logo">
+                <a href="/Default.aspx">
+                    <img src="/images/sbm_web_logo.png" alt="Storage By Mail Logo" border="0" /></a>
+            </div>
+            <div class="nav">
+                <div class="login">
+                    <div id="login_container">
+                        <div id="topnav" class="topnav">
+                            <a class="signin">
+                                <img class="no_border" src="/images/btn_login.jpg" alt="login to your storage by mail account"
+                                    width="129" height="26" hspace="0" vspace="0" align="top" /></a>
+                        </div>
+                        <fieldset id="signin_menu">
+                            <table id="Login1" class="login_form_control" cellspacing="0" cellpadding="0" border="0" style="font-family:Arial;width:250px;border-collapse:collapse;">
+	<tr>
+		<td>
+                                    <table border="0" cellpadding="1" cellspacing="0" style="border-collapse: collapse;">
+                                        <tr>
+                                            <td>
+                                                <table border="0" cellpadding="2" cellspacing="2" style="width: 250px;">
+                                                    <tr>
+                                                        <td align="right">
+                                                            <label for="Login1_UserName" id="Login1_UserNameLabel">User Name:</label>
+                                                        </td>
+                                                        <td>
+                                                            <input name="Login1$UserName" type="text" id="Login1_UserName" style="width:150px;" />
+                                                            <span id="Login1_UserNameRequired" title="User Name is required." style="color:Red;visibility:hidden;">*</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">
+                                                            <label for="Login1_Password" id="Login1_PasswordLabel">Password:</label>
+                                                        </td>
+                                                        <td>
+                                                            <input name="Login1$Password" type="password" id="Login1_Password" style="width:150px;" />
+                                                            <span id="Login1_PasswordRequired" title="Password is required." style="color:Red;visibility:hidden;">*</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <input id="Login1_RememberMe" type="checkbox" name="Login1$RememberMe" /><label for="Login1_RememberMe">Remember me next time.</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center" colspan="2" style="color: Red;">
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" colspan="2">
+                                                            <input type="submit" name="Login1$LoginButton" value="Log In" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;Login1$LoginButton&quot;, &quot;&quot;, true, &quot;Login1&quot;, &quot;&quot;, false, false))" id="Login1_LoginButton" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <a id="Login1_PasswordRecoveryLink" href="PasswordReset.aspx">Forgot password?</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+	</tr>
+</table>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="nav_menu">
+                    <a href="SignUp.aspx">
+                        <img src="/images/btn_signup.jpg" alt="signup for storage by mail" width="94" height="38"
+                            hspace="0" vspace="0" border="0" align="left" border="0" /></a> <a href="Demo.aspx">
+                                <img src="/images/btn_demo.jpg" alt="view demo of storage by mail service" width="82"
+                                    height="38" align="left" border="0" /></a> <a href="Pricing.aspx">
+                                        <img src="/images/btn_pricing.jpg" alt="view pricing packages for storage by mail products"
+                                            width="87" height="38" align="left" border="0" /></a> <a href="http://blog.storagebymail.com">
+                                                <img src="/images/btn_blog.jpg" alt="storage by mail blog" width="81" border="0"
+                                                    height="38" align="left" /></a> <a href="Contact.aspx">
+                                                        <img src="/images/btn_contact.jpg" width="128" height="38" alt="contact us about storage by mail products or services"
+                                                            border="0" /></a>
+                </div>
+            </div>
+        </div>
+        <!-- end #header -->
+    </div>
+    <div class="banner_container">
+        <div class="banner_elements">
+            <div class="banner">
+
+                <script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
+
+                <script type="text/javascript">
+
+    function slideSwitch() {
+        var $active = $('#slideshow IMG.active');
+
+        if ($active.length == 0) $active = $('#slideshow IMG:last');
+
+        // use this to pull the images in the order they appear in the markup
+        var $next = $active.next().length ? $active.next()
+        : $('#slideshow IMG:first');
+
+        // uncomment the 3 lines below to pull the images in random order
+
+        // var $sibs  = $active.siblings();
+        // var rndNum = Math.floor(Math.random() * $sibs.length );
+        // var $next  = $( $sibs[ rndNum ] );
+
+
+        $active.addClass('last-active');
+
+        $next.css({ opacity: 0.0 })
+        .addClass('active')
+        .animate({ opacity: 1.0 }, 1000, function() {
+            $active.removeClass('active last-active');
+        });
+    }
+
+    $(function() {
+        setInterval("slideSwitch()", 6000);
+    });
+
+</script>
+
+                <style type="text/css">
+                    /*** set the width and height to match your images **/#slideshow
+                    {
+                        position: relative;
+                        height: 300px;
+                    }
+                    #slideshow IMG
+                    {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        z-index: 8;
+                        opacity: 0.0;
+                    }
+                    #slideshow IMG.active
+                    {
+                        z-index: 10;
+                        opacity: 1.0;
+                    }
+                    #slideshow IMG.last-active
+                    {
+                        z-index: 9;
+                    }
+                </style>
+                <!-- this will work with any number of images -->
+                <!-- set the active class on whichever image you want to show up as the default 
+(otherwise this will be the last image) -->
+                <div id="slideshow">
+                    <a href="SignUp.aspx"><img src="images/banner1.png" border="0" alt="Slideshow Image 1" class="active" />
+                    <img src="images/banner2.png" border="0" alt="Slideshow Image 2" />
+                    <img src="images/banner3.png" border="0" alt="Slideshow Image 3" />
+                    <img src="images/banner4.png" border="0" alt="Slideshow Image 4" /></a>
+                </div>
+            </div>
+            <div class="banner_right">
+                <div class="signup_button">
+                    <a href="SignUp.aspx">
+                        <img src="images/yellow_btn_signup.jpg" width="123" height="30" alt="sign up for free"
+                            border="0" /></a>
+                </div>
+                <div class="more_link">
+                    <a href="Personas.aspx">more >></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <div id="mainContent">
+            <br />
+            <img id="Image1" src="images/press_banner.png" align="middle" style="border-width:0px;" />
+                <br />
+            <div class="home_main_container">
+                <div class="home_main_col1">
+                    <img src="images/home_col1.png" alt="safe and secure" width="307" height="118" />
+                    <p>
+                        Computers, barcodes and biometrics --- these are the technologies that big companies
+                        use to secure their assets. Now you too can store your property in an ultra-modern
+                        warehouse.</p>
+                </div>
+                <div class="home_main_col2">
+                    <img src="images/home_col2.png" width="307" height="116" alt="safe and secure" />
+                    <p>
+                        You have better things to do than haul boxes to a self storage warehouse in the
+                        sketchy part of town. Why not let the storage come to you? And now with USPS Carrier
+                        Pickup and Pickup on Demand it’s even easier.</p>
+                </div>
+                <div class="home_main_col3">
+                    <img src="images/home_col3.png" width="307" height="116" alt="safe and secure" />
+                    <p>
+                        Feeling tied down? StorageByMail gives you the freedom to move around. Send and
+                        receive packages from any address, even overseas APO/FPO locations.</p>
+                </div>
+            </div>
+            <div class="home_break">
+            </div>
+            <div class="home_tips">
+                <div class="home_tips_col1">
+                    <div class="home_tips_image">
+                        <img src="images/home_tip1.jpg" alt="tip 1 " width="96" height="100" /></div>
+                    <div class="home_tips_text">
+                        Use good-quality boxes and plenty of tape to avoid damage. A strong moving & storage
+                        box wrapped with lots of packing tape will stand up against occasional rough handling
+                        by the postal service.</div>
+                </div>
+                <div class="home_tips_col2">
+                    <div class="home_tips_image">
+                        <img src="images/home_tip2.jpg" alt="tip 2 " width="123" height="78" /></div>
+                    <div class="home_tips_text">
+                        Fill each box, but do not over or under pack. Typical boxes are rated 200-test meaning
+                        they can hold up to 65lbs. However in practice you should limit yourself to about
+                        35lbs. That’s about 8 or 9 textbooks (depending on what you’re studying). Fill any
+                        empty space with cushioning material to prevent the walls from collapsing.</div>
+                </div>
+                <div class="home_tips_col3">
+                    <div class="home_tips_image">
+                        <img src="images/home_tip3.jpg" alt="tip 3 " width="114" height="87" /></div>
+                    <div class="home_tips_text">
+                        Take advantage of the best-kept secrets at the USPS --- Carrier Pickup and Pickup-On-Demand. You specify the time, place and date. And the USPS comes to you.</div>
+                </div>
+            </div>
+            <div class="pricing">
+                <h4>
+                    StorageByMail Receives Packages From All Over The World --- Track The Locations
+                    Below</h4>
+                <center>
+                    <iframe src="/shipping_map_zoom4/shipping_map2.php" width="985" height="256" frameborder="0"
+                        scrolling="no" align="middle" marginheight="0" marginwidth="0">Your browser does not support iframes.</iframe>
+                        </center>
+            </div>
+            <p>
+                <!-- end #mainContent -->
+        </div>
+        <!-- end #container -->
+    </div>
+    
+<script type="text/javascript">
+//<![CDATA[
+var Page_Validators =  new Array(document.getElementById("Login1_UserNameRequired"), document.getElementById("Login1_PasswordRequired"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var Login1_UserNameRequired = document.all ? document.all["Login1_UserNameRequired"] : document.getElementById("Login1_UserNameRequired");
+Login1_UserNameRequired.controltovalidate = "Login1_UserName";
+Login1_UserNameRequired.errormessage = "User Name is required.";
+Login1_UserNameRequired.validationGroup = "Login1";
+Login1_UserNameRequired.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+Login1_UserNameRequired.initialvalue = "";
+var Login1_PasswordRequired = document.all ? document.all["Login1_PasswordRequired"] : document.getElementById("Login1_PasswordRequired");
+Login1_PasswordRequired.controltovalidate = "Login1_Password";
+Login1_PasswordRequired.errormessage = "Password is required.";
+Login1_PasswordRequired.validationGroup = "Login1";
+Login1_PasswordRequired.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+Login1_PasswordRequired.initialvalue = "";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        //]]>
+</script>
+</form>
+    <div id="footer">
+        <div class="footer_content">
+            <p>
+                <a href="/default.aspx">Home</a> | <a href="/signup.aspx">Sign Up</a> | <a href="demo.aspx">
+                    Demo</a> | <a href="http://blog.storagebymail.com">Blog</a> | <a target="_blank"
+                        href="http://twitter.com/storagebymail">Follow Us on Twitter</a> | <a href="privacy.aspx">
+                            Privacy Policy</a> | <a href="UsageAgreement.aspx">Usage Agreement</a>
+                | <a href="Contact.aspx">Contact Us</a> | 855-YO-STORAGE | MemberCare@StorageByMail.com</p>
+            <p>
+                The names and logos for StorageByMail.com are registered trademark of StorageByMail,
+                LLC.<br />
+                All Text and design is Copyright 2005-2011 StorageByMail, LLC. All rights reserved.</p>
+                <div class="footer_badges">
+        <div style="float:left"><div class="AuthorizeNetSeal"> <script type="text/javascript" language="javascript">                                                                   var ANS_customer_id = "875c8883-7879-42e5-be2c-72119280a72d";</script> <script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js" ></script> </div></div>
+        <div style = "float:right"><span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=hWoGMcM8CFzYA1ocW59BYsCsIOylwfhrtYC0OtCRtTcscUYROblXTDL9v"></script><br/></span></div>
+        </div>
+        </div>
+        <!-- end #footer -->
+    </div>
+    <!-- Google Code for Remarketing Pilot List Remarketing List -->
+
+    <script type="text/javascript">
+<!--
+    var google_conversion_id = 1069466319;
+    var google_conversion_language = "en";
+    var google_conversion_format = "3";
+    var google_conversion_color = "666666";
+    var google_conversion_label = "mGlVCNm3rQEQz4X7_QM";
+    var google_conversion_value = 0;
+//-->
+    </script>
+
+    <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+    </script>
+
+    <noscript>
+        <div style="display: inline;">
+            <img height="1" width="1" style="border-style: none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1069466319/?label=mGlVCNm3rQEQz4X7_QM&amp;guid=ON&amp;script=0" />
+        </div>
+    </noscript>
+    <!-- start google analytics -->
+
+    <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-271563-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+    <!-- end google analytics -->
+    <!-- begin AdBrite, Important page views tracking -->
+    <img border="0" hspace="0" vspace="0" width="1" height="1" src="http://bstats.adbrite.com/click/bstats.gif?kid=43132238&bapid=2562&uid=662792" /><!-- end AdBrite,  Important page views tracking -->
+
+<!--snapengage code-->
+<script type="text/javascript">
+    document.write(unescape("%3Cscript src='" + ((document.location.protocol == "https:") ? "https://snapabug.appspot.com" : "http://www.snapengage.com") + "/snapabug.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">
+                                                                                                                                                                                                                        SnapABug.addButton("bddc5830-759b-45dd-9b56-82c18e815c66", "2", "75%");
+</script>
+<!--end snapengage code-->
+
+</body>
+</html>
+
