@@ -4,6 +4,8 @@ StuffManagement::Application.routes.draw do
 
   get "home/index"
 
+  resources :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
