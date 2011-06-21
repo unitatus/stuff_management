@@ -16,12 +16,14 @@
 	<div class="nav">
 	  <div id="login_container">
 	    <div id="topnav" class="topnav">
-	      <a class="signin">
-	        Log In
-	      </a> |
-	      <a class="signin">
-	        Sign Up 
-	      </a> |
+              <% if user_signed_in? %>
+              Signed in as <%= current_user.first_name %> <%= current_user.last_name %>. Not you? <%= link_to "Sign out", destroy_user_session_path %>
+              <% else %>
+	        <%= link_to "Log In", new_user_session_path, :class => 'signin' %>
+	       |
+	        <%= link_to "Sign Up", new_user_registration_path, :class => 'signin' %>
+              <% end %>
+	      |
 	      <a class="signin">
 	        Help
 	      </a>
@@ -52,7 +54,7 @@
 	  <p>
 	  <a href="/">Home</a> | <a href="/">Sign Up</a> | <a href="/">Demo</a> | <a href="/">Pricing</a> | <a href="/">Follow Us on Twitter</a> | <a href="/">Privacy Policy</a> | <a href="/">Usage Agreement</a> | <a href="/">Contact Us</a> </p>
 	  <p>
-	  The names and logos for VisibleCloset.com are registered trademarks of Visible Closet, Inc.<br /> All Text and design is Copyright 2011 Visible Closet, Inc. All rights reserved.</p>
+	  The names and logos for TheVisibleCloset.com are registered trademarks of The Visible Closet, Inc.<br /> All Text and design is Copyright 2011 The Visible Closet, Inc. All rights reserved.</p>
 	</div>
 	</div>
 

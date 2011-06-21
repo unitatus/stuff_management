@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110621152051
+# Schema version: 20110621190155
 #
 # Table name: users
 #
@@ -25,7 +25,8 @@
 #  updated_at           :datetime
 #  last_name            :string(255)
 #  first_name           :string(255)
-#  beta_user            :boolean
+#  beta_user            :boolean         default(TRUE)
+#  signup_comments      :text
 #
 
 class User < ActiveRecord::Base
@@ -40,12 +41,11 @@ class User < ActiveRecord::Base
                   :remember_me, 
                   :beta_user,
                   :first_name,
-                  :last_name
+                  :last_name,
+                  :signup_comments
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   # Don't need to worry about other password validation, since devise handles that
   validates :password, :confirmation => true
-
-
 end

@@ -166,6 +166,47 @@ the element away from the edges of the div */
 	margin: 3px auto 0px auto;
 	font-family: Arial;
 }
+/**************************SIGN UP PAGE ********************************/
+.sign_up_form_narrow
+{
+        border-color:#A9A6A6;
+        border-width:1px;
+        border-style:Solid;
+        width:200px;
+        padding-bottom:10px;
+        font-size: 20px;
+}
+.sign_up_form_wide
+{
+        border-color:#A9A6A6;
+        border-width:1px;
+        border-style:Solid;
+        width:405px;
+        padding-bottom:10px;
+        font-size: 20px;
+}
+.sign_up_form_submit
+{
+        width:75px;
+        font-size:200%;
+}
+table.sign_up_table
+{
+        margin-left:auto;
+        margin-right:auto;
+        text-align:left;
+        border-spacing:7px;
+}
+.sign_up_form_text
+{
+        width:336px;
+}
+
+.sign_up_form_text_small
+{
+        width:100%;
+        font-size: 65%;
+}
 /**************************HOME PAGE CONTENT****************************/
 .home_main_container
 {
@@ -177,13 +218,12 @@ the element away from the edges of the div */
 }
 .home_main_col1
 {
-	padding-left: 9px;
-	padding-right: 9px;
+	padding-left: 427px;
 	float: left;
 	margin-top: 10px;
-	height: 240px;
-	width: 308px;
-	background: url(/images/col_div.gif) right no-repeat;
+	height: 100%;
+	width: 750px;
+        text-align: center;
 }
 .home_main_col2
 {
@@ -193,7 +233,6 @@ the element away from the edges of the div */
 	margin-top: 10px;
 	height: 240px;
 	width: 308px;
-	background: url(/images/col_div.gif) right no-repeat;
 }
 .home_main_col3
 {
