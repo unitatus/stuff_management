@@ -8,7 +8,54 @@
 </head>
 <body class="oneColFixCtrHdr">
 
+	<div class="header_container">
+	  <div class="logo">
+	    <a href="/">Visible Closet</a>
+	  </div>
+	</div>
+	<div class="nav">
+	  <div id="login_container">
+	    <div id="topnav" class="topnav">
+	      <a class="signin">
+	        Log In
+	      </a> |
+	      <a class="signin">
+	        Sign Up 
+	      </a> |
+	      <a class="signin">
+	        Help
+	      </a>
+	    </div>
+	  </div>
+	</div>
+	<div class="mainbar">
+	  <div class="mainnav">
+	  <a href="/">
+	    <img src="/images/how_it_works.jpg" alt="how visual closet works" width="94" height="38" hspace="0" vspace="0" border="0" align="left" />
+	  </a>
+	  <a href="/">
+	    <img src="/images/pricing.jpg" alt="visual pricing" width="94" height="38" hspace="0" vspace="0" border="0" align="left" />
+	  </a>
+	  <a href="/">
+	    <img src="/images/Blog.jpg" alt="visit our blog!" width="94" height="38" hspace="0" vspace="0" border="0" align="left" />
+	  </a>
+	  <a href="/">
+	    <img src="/images/FAQ.jpg" alt="frequently asked questions" width="94" height="38" hspace="0" vspace="0" border="0" align="left" />
+	  </a>
+	  </div>
+	</div>
+        <div class="home_main_col1">
 <%= yield %>
+        </div>
+	<div id="footer">
+	<div class="footer_content">
+	  <p>
+	  <a href="/">Home</a> | <a href="/">Sign Up</a> | <a href="/">Demo</a> | <a href="/">Pricing</a> | <a href="/">Follow Us on Twitter</a> | <a href="/">Privacy Policy</a> | <a href="/">Usage Agreement</a> | <a href="/">Contact Us</a> </p>
+	  <p>
+	  The names and logos for VisibleCloset.com are registered trademarks of Visible Closet, Inc.<br /> All Text and design is Copyright 2011 Visible Closet, Inc. All rights reserved.</p>
+	</div>
+	</div>
+
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 </body>
