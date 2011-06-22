@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= content_for?(:title) ? yield(:title) : "Visible Closet" %></title>
+  <title><%= content_for?(:title) ? yield(:title) : "The Visible Closet" %></title>
   <%= stylesheet_link_tag "screen.css", :media => 'screen, projection' %>
   <!--[if IE]><%= stylesheet_link_tag "ie.css", :media => 'screen, projection' %><![endif]-->
   <%= csrf_meta_tag %>
@@ -10,7 +10,7 @@
 
 	<div class="header_container">
 	  <div class="logo">
-	    <a href="/">Visible Closet</a>
+	    <a href="/">The Visible Closet</a>
 	  </div>
 	</div>
 	<div class="nav">
@@ -47,6 +47,9 @@
 	  </div>
 	</div>
         <div class="home_main_col1">
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
 <%= yield %>
         </div>
 	<div id="footer">
@@ -58,7 +61,5 @@
 	</div>
 	</div>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
 </body>
 </html>

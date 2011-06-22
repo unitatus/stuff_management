@@ -46,6 +46,4 @@ class User < ActiveRecord::Base
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
-  # Don't need to worry about other password validation, since devise handles that
-  validates :password, :confirmation => true
 end

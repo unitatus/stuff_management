@@ -1,10 +1,10 @@
 StuffManagement::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :path_names => { :sign_up => "beta_register" }, :controllers => { :registrations => "registrations" }
+  #devise_for :users, :path_names => { :sign_up => "beta_register" }
 
   get "home/index"
-
-  resources :users
+  get "pages/beta_thanks"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

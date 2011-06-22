@@ -10,13 +10,24 @@ body
 }
 a
 {
-        color: Red;
+        color: Blue;
         text-decoration: none;
 }
 a:hover
 {
         color: Red;
         text-decoration: underline;
+}
+.error_label
+{
+        color: Red;
+}
+.field_with_errors {
+  background-color: red;
+  display: table;
+}
+.field_with_errors label {
+  color: #fff;
 }
 .oneColFixCtrHdr #container
 {        width: 980px; /* using 20px less than a full 800px width allows for brow
