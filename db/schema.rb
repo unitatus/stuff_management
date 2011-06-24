@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110624203232) do
+ActiveRecord::Schema.define(:version => 20110624203839) do
 
   create_table "boxes", :force => true do |t|
     t.integer  "assigned_to_user_id"
@@ -24,6 +24,10 @@ ActiveRecord::Schema.define(:version => 20110624203232) do
     t.integer  "stored_item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "data_file_name"
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.datetime "data_updated_at"
   end
 
   add_index "photos", ["stored_item_id"], :name => "index_photos_on_stored_item_id"
