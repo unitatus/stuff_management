@@ -10,4 +10,5 @@
 #
 
 class StoredItem < ActiveRecord::Base
+  belongs_to :boxes
 end
