@@ -11,4 +11,5 @@
 
 class StoredItem < ActiveRecord::Base
   belongs_to :boxes
+  has_many :photos
 end
