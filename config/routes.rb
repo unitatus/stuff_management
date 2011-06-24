@@ -7,6 +7,9 @@ StuffManagement::Application.routes.draw do
 
   get "home/index"
   get "pages/beta_thanks"
+  get "admin/home"
+  get "admin/send_boxes"
+  post "admin/send_boxes_user_search"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
