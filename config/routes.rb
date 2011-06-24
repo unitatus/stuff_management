@@ -1,5 +1,7 @@
 StuffManagement::Application.routes.draw do
 
+  resources :boxes
+
   devise_for :users, :path_names => { :sign_up => "beta_register" }, :controllers => { :registrations => "registrations" }
   #devise_for :users, :path_names => { :sign_up => "beta_register" }
 

@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
                   :last_name,
                   :signup_comments
 
+  has_many :boxes
+
   validates :first_name, :presence => true
   validates :last_name, :presence => true
 end

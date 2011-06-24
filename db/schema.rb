@@ -10,7 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110621190155) do
+ActiveRecord::Schema.define(:version => 20110624000133) do
+
+  create_table "boxes", :force => true do |t|
+    t.integer  "assigned_to_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "boxes", ["assigned_to_user_id"], :name => "index_boxes_on_assigned_to_user_id"
+
+  create_table "stored_items", :force => true do |t|
+    t.integer  "box_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stored_items", ["box_id"], :name => "index_stored_items_on_box_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",   :null => false
