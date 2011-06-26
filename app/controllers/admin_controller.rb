@@ -9,20 +9,35 @@ class AdminController < ApplicationController
   end
 
   def send_boxes_user_search
-    conditions = Hash.new()
+    conditions = Array.new 
+    condition_count = 0
+    condition_string = ''
 
     if (!params[:user][:id].empty?)
-      conditions[:id] = params[:user][:id]
+      condition_count = condition_count + 1
+      condition_string = 'ID = ?'
+      conditions[condition_count] = params[:user][:id]
     end
 
     if (!params[:user][:first_name].empty?)
-      conditions[:first_name] = params[:user][:first_name]
+      if (condition_count > 0)
+        condition_string << " OR "
+      end
+      condition_count = condition_count + 1
+      condition_string << 'first_name LIKE ?'
+      conditions[condition_count] = params[:user][:first_name]
     end
 
     if (!params[:user][:last_name].empty?)
-      conditions[:last_name] = params[:user][:last_name]
+      if (condition_count > 0)
+        condition_string << " OR "
+      end
+      condition_count = condition_count + 1
+      condition_string << 'last_name LIKE ?'
+      conditions[condition_count] = params[:user][:last_name]
     end
 
+    conditions[0] = condition_string
     @found_users = User.all(:conditions => conditions)
   end
 end
