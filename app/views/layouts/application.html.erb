@@ -19,6 +19,8 @@
 	    <div id="topnav" class="topnav">
               <% if user_signed_in? %>
               Signed in as <%= current_user.first_name %> <%= current_user.last_name %>. Not you? <%= link_to "Sign out", destroy_user_session_path %>
+              |
+                <a href="/account/home" class="signin">Account</a>
               <% else %>
 	        <%= link_to "Log In", new_user_session_path, :class => 'signin' %>
 	       |
