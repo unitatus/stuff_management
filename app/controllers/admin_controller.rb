@@ -38,6 +38,6 @@ class AdminController < ApplicationController
     end
 
     conditions[0] = condition_string
-    @found_users = User.all(:conditions => conditions)
+    @found_users = User.all(:conditions => conditions, :order => 'last_name ASC')
   end
 end
