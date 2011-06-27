@@ -22,5 +22,11 @@ StuffManagement::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  # Customizations for The Visible Closet
+  config.our_box_product_id = 1
+  config.your_box_product_id = 3
+  config.our_box_insurance_product_id = 2
+  config.your_box_insurance_product_id = 4
 end
 

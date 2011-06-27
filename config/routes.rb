@@ -1,5 +1,7 @@
 StuffManagement::Application.routes.draw do
 
+  resources :products
+
   resources :boxes
 
   devise_for :users, :path_names => { :sign_up => "beta_register" }, :controllers => { :registrations => "registrations" }
@@ -10,6 +12,9 @@ StuffManagement::Application.routes.draw do
   get "admin/home"
   get "admin/send_boxes"
   post "admin/send_boxes_user_search"
+  get "account/store_more_boxes"
+
+  match "account/home" => "account#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

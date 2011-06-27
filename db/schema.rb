@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110624203839) do
+ActiveRecord::Schema.define(:version => 20110627180233) do
 
   create_table "boxes", :force => true do |t|
     t.integer  "assigned_to_user_id"
@@ -19,6 +19,25 @@ ActiveRecord::Schema.define(:version => 20110624203839) do
   end
 
   add_index "boxes", ["assigned_to_user_id"], :name => "index_boxes_on_assigned_to_user_id"
+
+  create_table "cart_items", :force => true do |t|
+    t.integer  "quantity"
+    t.integer  "cart_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cart_items", ["cart_id"], :name => "index_cart_items_on_cart_id"
+  add_index "cart_items", ["product_id"], :name => "index_cart_items_on_product_id"
+
+  create_table "carts", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
 
   create_table "photos", :force => true do |t|
     t.integer  "stored_item_id"
@@ -31,6 +50,14 @@ ActiveRecord::Schema.define(:version => 20110624203839) do
   end
 
   add_index "photos", ["stored_item_id"], :name => "index_photos_on_stored_item_id"
+
+  create_table "products", :force => true do |t|
+    t.string   "name"
+    t.integer  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "price_comment"
+  end
 
   create_table "stored_items", :force => true do |t|
     t.integer  "box_id"

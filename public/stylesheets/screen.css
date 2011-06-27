@@ -194,6 +194,14 @@ table.user_list_table td
 {
         border: solid black 1px;
 }
+/*****************************Account***************************************/
+table.order_boxes_table
+{
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center;
+        border-spacing:0px;
+}
 
 /**************************SIGN UP PAGE ********************************/
 .sign_up_form_narrow

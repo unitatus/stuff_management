@@ -1,0 +1,47 @@
+<br>
+<table class="order_boxes_table">
+  <tr>
+    <th>&nbsp;</th>
+    <th colspan="2">Your Boxes</th>
+    <th colspan="2">Our Boxes</th>
+    <th>&nbsp;</th>
+  </tr>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Insured</th>
+    <th>Uninsured</th>
+    <th>Insured</th>
+    <th>Uninsured</th>
+    <th>&nbsp;</th>
+  </tr>
+<%= form_tag("/account/order_boxes") do %>
+  <tr>
+    <td>Number of boxes you would like to store:</td>
+    <td><%= text_field_tag(:num_boxes_yours_insured) %></td>
+    <td><%= text_field_tag(:num_boxes_yours_uninsured) %></td>
+    <td><%= text_field_tag(:num_boxes_ours_insured) %></td>
+    <td><%= text_field_tag(:num_boxes_ours_uninsured) %></td>
+    <td colspan=3><%= submit_tag("Submit") %></td>
+  </tr>
+<% end %>
+</table>
+<p>
+All Visible Closet boxes are 12"X12"X24".
+<p>
+<table class="user_list_table"><tr>
+<th colspan=2>Pricing</th>
+</tr>
+<tr>
+  <td>Storing a Visible Storage box: </td>
+  <td>$<%= @our_box.price %> <%= @our_box.price_comment %></td>
+</tr><tr>
+  <td>Storing your box:</td>
+  <td>$<%= @your_box.price %> <%= @your_box.price_comment %></td>
+</tr><tr>
+  <td>Insuring a Visible Storage box:</td>
+  <td>$<%= @our_box_insurance.price %> <%= @our_box_insurance.price_comment %></td>
+</tr><tr>
+  <td>Insuring your box:</td>
+  <td>$<%= @your_box_insurance.price %> <%= @your_box_insurance.price_comment %></td>
+</tr>
+</table>
