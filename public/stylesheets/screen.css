@@ -202,6 +202,24 @@ table.order_boxes_table
         text-align:center;
         border-spacing:0px;
 }
+.account_left_nav
+{
+        position: absolute;
+        top: 178px;
+        left: 400px;
+        width: 150px;
+        text-align: left;
+        height: 400px;
+}
+.account_center
+{
+        position: relative;
+        top: 0px;
+        left: 130px;
+        width: 100%;
+        text-align: center;
+        height: 400px;
+}
 
 /**************************SIGN UP PAGE ********************************/
 .sign_up_form_narrow
