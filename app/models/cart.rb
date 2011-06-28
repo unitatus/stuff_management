@@ -10,5 +10,29 @@
 #
 
 class Cart < ActiveRecord::Base
-  has_many :cart_items
+  has_many :cart_items, :autosave => true
+
+  def estimated_total
+    total_estimate = 0
+
+    cart_items.each do |cart_item|
+      product = Product.find(cart_item.product_id)
+
+      total_estimate += (cart_item.quantity * product.price)
+    end
+ 
+    total_estimate
+  end
+
+  def get_quantity(product_id)
+    found_cart_items = cart_items.select { |c| c.product_id == product_id }
+
+    total_qty = 0
+
+    found_cart_items.each do |c|
+      total_qty += c.quantity
+    end
+
+    total_qty
+  end
 end

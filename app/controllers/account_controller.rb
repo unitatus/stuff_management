@@ -3,12 +3,12 @@ class AccountController < ApplicationController
   end
 
   def store_more_boxes
-    @your_box = Product.find(Rails.application.config.your_box_product_id)
-    @our_box = Product.find(Rails.application.config.our_box_product_id)
-    @your_box_insurance = Product.find(Rails.application.config.your_box_insurance_product_id)
-    @our_box_insurance = Product.find(Rails.application.config.our_box_insurance_product_id)
-    @your_box_inventorying = Product.find(Rails.application.config.your_box_inventorying_product_id)
-    @our_box_inventorying = Product.find(Rails.application.config.our_box_inventorying_product_id)
+    @your_box_uninsured = Product.find(Rails.application.config.your_box_uninsured_product_id)
+    @our_box_uninsured = Product.find(Rails.application.config.our_box_uninsured_product_id)
+    @your_box_insured = Product.find(Rails.application.config.your_box_insured_product_id)
+    @our_box_insured = Product.find(Rails.application.config.our_box_insured_product_id)
+
+    @cart = Cart.find_by_user_id(current_user.id)
   end
 
   def order_boxes
@@ -18,55 +18,73 @@ class AccountController < ApplicationController
       cart.user_id = current_user.id
     end
 
-    # logic to check for form submission -- probably part of Rails
+    convert_params
 
-    cart_changes = false
-
-    if (!params[:num_boxes_yours].empty?) 
-      new_product = Product.find(Rails.application.config.your_box_product_id)
-      cart_item = CartItem.new
-      cart_item.product_id = new_product.id
-      cart_item.quantity = params[:num_boxes_yours]
-      cart.cart_items << cart_item
-      cart_changes = true
+    if (params[:num_boxes_yours_uninsured] != "0") 
+      cart = process_cart_item(cart, 
+        Rails.application.config.your_box_uninsured_product_id, 
+        params[:num_boxes_yours_uninsured])
     end
 
-    if (!params[:num_boxes_ours].empty?) 
-      new_product = Product.find(Rails.application.config.our_box_product_id)
-      cart_item = CartItem.new
-      cart_item.product_id = new_product.id
-      cart_item.quantity = params[:num_boxes_ours]
-      cart.cart_items << cart_item
-      cart_changes = true
+    if (params[:num_boxes_ours_uninsured] != "0") 
+      cart = process_cart_item(cart, 
+        Rails.application.config.our_box_uninsured_product_id, 
+        params[:num_boxes_ours_uninsured])
     end
 
-    if (!params[:num_boxes_yours_insured].empty?) 
-      new_product = Product.find(Rails.application.config.your_box_insurance_product_id)
-      cart_item = CartItem.new
-      cart_item.product_id = new_product.id
-      cart_item.quantity = params[:num_boxes_yours_insured]
-      cart.cart_items << cart_item
-      cart_changes = true
+    if (params[:num_boxes_yours_insured] != "0") 
+      cart = process_cart_item(cart, 
+        Rails.application.config.your_box_insured_product_id, 
+        params[:num_boxes_yours_insured])
     end
 
-    if (!params[:num_boxes_ours_insured].empty?) 
-      new_product = Product.find(Rails.application.config.our_box_insurance_product_id)
-      cart_item = CartItem.new
-      cart_item.product_id = new_product.id
-      cart_item.quantity = params[:num_boxes_ours_insured]
-      cart.cart_items << cart_item
-      cart_changes = true
+    if (params[:num_boxes_ours_insured] != "0") 
+      cart = process_cart_item(cart, 
+        Rails.application.config.our_box_insured_product_id, 
+        params[:num_boxes_ours_insured])
     end
 
-    if (cart_changes)
-      if (cart.save())
-        flash[:notice] = "Items were added to your cart! Click the cart option on the left to see cart contents and finalize order."
-      else
-        flash[:alert] = "There was a problem saving your order to the cart!"
-      end
+    if (cart.save())
+      flash[:notice] = "Cart updated. Click the cart option on the left to see cart contents and finalize order."
+    else
+      flash[:alert] = "There was a problem saving your update to the cart."
     end
 
     redirect_to :action => 'index'    
+  end
+
+  def process_cart_item(cart, product_id, quantity)
+    cart_item = cart.cart_items.select { |c| c.product_id == product_id }[0]
+
+    if (!cart_item)
+      cart_item = CartItem.new
+      cart_item.product_id = product_id
+      cart.cart_items << cart_item
+    end
+
+    cart_item.quantity = quantity
+
+    cart
+  end
+
+  def convert_params()
+    if (params[:num_boxes_yours_uninsured].empty?)
+      params[:num_boxes_yours_uninsured] = "0"
+    end
+    
+    if (params[:num_boxes_yours_insured].empty?)
+      params[:num_boxes_yours_insured] = "0"
+    end
+
+    if (params[:num_boxes_ours_uninsured].empty?)
+      params[:num_boxes_ours_uninsured] = "0"
+    end
+
+    if (params[:num_boxes_ours_insured].empty?)
+      params[:num_boxes_ours_insured] = "0"
+    end
+
+    params
   end
 
   def cart
@@ -77,8 +95,12 @@ class AccountController < ApplicationController
   end
 
   def update_cart_item
-    @cart = Cart.find(params[:cart_id])
-    cart_item = @cart.cart_items.select {|c| c.id = params[:cart_item_id]}[0]
+    if (params[:quantity] == '0')
+      remove_cart_item
+      return
+    end
+
+    cart_item = CartItem.find(params[:cart_item_id])
 
     cart_item.quantity = params[:quantity]
 
@@ -87,8 +109,9 @@ class AccountController < ApplicationController
     else
       flash.now[:alert] = "There was a problem saving your update."
       @errors = cart_item.errors
-      @cart = Cart.find(params[:cart_id])
     end
+
+    @cart = Cart.find(cart_item.cart_id)
 
     render 'cart'
   end
@@ -96,11 +119,12 @@ class AccountController < ApplicationController
   def remove_cart_item
     # find the cart so we can re-show the page
     cart_item = CartItem.find(params[:cart_item_id])
-    @cart = Cart.find(cart_item.cart_id)
    
     CartItem.delete(params[:cart_item_id])
 
     flash.now[:notice] = "Cart item removed."
+
+    @cart = Cart.find(cart_item.cart_id)
 
     render 'cart'
   end

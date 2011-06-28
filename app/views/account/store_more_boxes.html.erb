@@ -1,6 +1,8 @@
 <%= render 'account_nav' %>
 <div class="account_center">
 <br>
+Please indicate the total number of boxes you would like to order. 
+<br>Ordering your own boxes will allow you to print a form to include with your box when you ship it.<br><br>
 <table class="order_boxes_table">
   <tr>
     <th>&nbsp;</th>
@@ -10,18 +12,24 @@
   </tr>
 <%= form_tag("/account/order_boxes") do %>
   <tr>
-    <td>Number of boxes you would like to store:</td>
-    <td><%= number_field_tag(:num_boxes_yours) %></td>
-    <td><%= number_field_tag(:num_boxes_ours) %></td>
+    <td>Number of UNINSURED boxes you would like to store:</td>
+    <td><%= number_field_tag(:num_boxes_yours_uninsured, @cart.get_quantity(Rails.application.config.your_box_uninsured_product_id)) %></td>
+    <td><%= number_field_tag(:num_boxes_ours_uninsured, @cart.get_quantity(Rails.application.config.our_box_uninsured_product_id)) %></td>
   </tr>
   <tr>
-    <td>How many of each type would you like insured?</td>
-    <td><%= number_field_tag(:num_boxes_yours_insured) %></td>
-    <td><%= number_field_tag(:num_boxes_ours_insured) %></td>
+    <td>Number of INSURED boxes you would like to store:</td>
+    <td><%= number_field_tag(:num_boxes_yours_insured, @cart.get_quantity(Rails.application.config.your_box_insured_product_id)) %></td>
+    <td><%= number_field_tag(:num_boxes_ours_insured, @cart.get_quantity(Rails.application.config.our_box_insured_product_id)) %></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td colspan=3><%= submit_tag("Add to cart") %></td> 
+    <td colspan=3>
+      <% if @cart %>
+        <%= submit_tag("Update cart") %>
+      <% else %>
+        <%= submit_tag("Add to cart") %>
+      <% end %>
+    </td> 
   </tr>
 <% end %>
 </table>
@@ -33,19 +41,19 @@ All Visible Closet boxes are 12"X12"X24".
 <th colspan=3 align="center">Pricing</th>
 </tr>
 <tr>
-  <td rowspan=2>Storage</td>
-  <td>Storing a Visible Storage box: </td>
-  <td>$<%= @our_box.price %> <%= @our_box.price_comment %></td>
+  <td rowspan=2>Uninsured</td>
+  <td>Storing a Visible Storage box, uninsured: </td>
+  <td>$<%= @our_box_uninsured.price %> <%= @our_box_uninsured.price_comment %></td>
 </tr><tr>
-  <td>Storing your box:</td>
-  <td>$<%= @your_box.price %> <%= @your_box.price_comment %></td>
+  <td>Storing your box, uninsured:</td>
+  <td>$<%= @your_box_uninsured.price %> <%= @your_box_uninsured.price_comment %></td>
 </tr><tr>
-  <td rowspan=2>Insurance</td>
-  <td>Insuring a Visible Storage box:</td>
-  <td>$<%= @our_box_insurance.price %> <%= @our_box_insurance.price_comment %></td>
+  <td rowspan=2>Insured</td>
+  <td>Storing a Visible Storage box, insured: </td>
+  <td>$<%= @our_box_insured.price %> <%= @our_box_insured.price_comment %></td>
 </tr><tr>
-  <td>Insuring your box:</td>
-  <td>$<%= @your_box_insurance.price %> <%= @your_box_insurance.price_comment %></td>
+  <td>Storing your box, insured:</td>
+  <td>$<%= @your_box_insured.price %> <%= @your_box_insured.price_comment %></td>
 </tr>
 </table>
 </div>
