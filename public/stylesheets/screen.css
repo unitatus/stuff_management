@@ -218,7 +218,7 @@ table.order_boxes_table
         left: 130px;
         width: 100%;
         text-align: center;
-        height: 550px;
+        height: 100%;
 }
 table.cart_list
 {

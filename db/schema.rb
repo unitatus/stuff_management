@@ -10,7 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110627180233) do
+ActiveRecord::Schema.define(:version => 20110628202127) do
+
+  create_table "addresses", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "day_phone"
+    t.string   "evening_phone"
+    t.string   "address_line_1"
+    t.string   "address_line_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "boxes", :force => true do |t|
     t.integer  "assigned_to_user_id"

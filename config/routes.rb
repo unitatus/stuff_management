@@ -17,6 +17,7 @@ StuffManagement::Application.routes.draw do
   get "account/cart"
   post "account/update_cart_item"
   get "account/remove_cart_item"
+  get "account/check_out"
 
   match "account/home" => "account#index"
 

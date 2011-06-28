@@ -128,4 +128,10 @@ class AccountController < ApplicationController
 
     render 'cart'
   end
+
+  def check_out
+    @cart = Cart.find_by_user_id(current_user.id)
+    @billing_address = Address.new
+    @shipping_address = Address.new
+  end
 end

@@ -88,6 +88,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
+    validatable (1.6.7)
     warden (1.0.3)
       rack (>= 1.0.0)
 
@@ -102,3 +103,4 @@ DEPENDENCIES
   rspec
   rspec-rails
   sqlite3
+  validatable

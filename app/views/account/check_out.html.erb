@@ -1,0 +1,155 @@
+<%= render 'account_nav' %>
+<div class="account_center">
+<%= form_tag("/account/finalize_check_out") do %>
+  <table class="order_boxes_table">
+    <tr>
+      <th colspan="2">Billing Information</th>
+      <th colspan="2">Shipping Information</th>
+    </tr>
+    <tr>
+      <td colspan=2">&nbsp;</td>
+      <td colspan="2"><%= check_box("submission", "same_as_shipping") %> Same as shipping address</td>
+    </tr>
+    <tr>
+      <td>First Name:</td>
+      <td>
+        <%= text_field_tag(:billing_first_name, @billing_address.first_name) %>
+        <%= error_messages_for_attribute(@billing_address, :first_name) %>
+      </td>
+      <td>First Name:</td>
+      <td>
+        <%= text_field_tag(:shipping_first_name, @shipping_address.first_name) %>
+        <%= error_messages_for_attribute(@shipping_address, :first_name) %>
+      </td>
+    </tr>
+    <tr>
+      <td>Last Name:</td>
+      <td>
+        <%= text_field_tag(:billing_last_name, @billing_address.last_name) %>
+        <%= error_messages_for_attribute(@billing_address, :last_name) %>
+      </td>
+      <td>Last Name:</td>
+      <td>
+        <%= text_field_tag(:shipping_last_name, @shipping_address.last_name) %>
+        <%= error_messages_for_attribute(@shipping_address, :last_name) %>
+      </td>
+    </tr>
+    <tr>
+     <td>Day Time Phone:</td>
+     <td><%= text_field_tag(:billing_day_phone, @billing_address.day_phone) %>
+         <%= error_messages_for_attribute(@billing_address, :day_phone) %>
+     </td>
+     <td>Day Time Phone:</td>
+     <td><%= text_field_tag(:shipping_day_phone, @shipping_address.day_phone) %>
+         <%= error_messages_for_attribute(@shipping_address, :day_phone) %>
+     </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Format: ###-###-####</td>
+      <td colspan=2>&nbsp;</td>
+    </tr>
+    <tr>
+     <td>Evening Phone:</td>
+     <td>
+         <%= text_field_tag(:billing_evening_phone, @billing_address.evening_phone) %>
+         <%= error_messages_for_attribute(@billing_address, :evening_phone) %>
+     </td>
+     <td>Evening Phone:</td>
+     <td>
+         <%= text_field_tag(:shipping_evening_phone, @shipping_address.evening_phone) %>
+         <%= error_messages_for_attribute(@shipping_address, :evening_phone) %>
+     </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Format: ###-###-####</td>
+      <td colspan=2>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Address Line 1</td>
+      <td>
+        <%= text_field_tag(:billing_address_line_1, @billing_address.address_line_1) %>
+        <%= error_messages_for_attribute(@billing_address, :address_line_1) %>
+      </td>
+      <td>Address Line 1</td>
+      <td>
+        <%= text_field_tag(:shipping_address_line_1, @shipping_address.address_line_1) %>
+        <%= error_messages_for_attribute(@shipping_address, :address_line_1) %>
+      </td>
+    </tr>
+    <tr>
+      <td>Address Line 2</td>
+      <td>
+        <%= text_field_tag(:billing_address_line_2, @billing_address.address_line_2) %>
+        <%= error_messages_for_attribute(@billing_address, :address_line_2) %>
+      </td>
+      <td>Address Line 2</td>
+      <td>
+        <%= text_field_tag(:shipping_address_line_2, @shipping_address.address_line_2) %>
+        <%= error_messages_for_attribute(@shipping_address, :address_line_2) %>
+       </td>
+    </tr>
+    <tr>
+      <td>City</td>
+      <td>
+        <%= text_field_tag(:billing_city, @billing_address.city) %>
+        <%= error_messages_for_attribute(@billing_address, :city) %>
+      </td>
+      <td>City</td>
+      <td>
+        <%= text_field_tag(:shipping_city, @shipping_address.city) %>
+        <%= error_messages_for_attribute(@shipping_address, :city) %>
+      </td>
+    </tr>
+    <tr>
+      <td>State</td>
+      <td>
+        <%= select_tag(:billing_state, options_for_select(states_array), :include_blank => true) %> 
+        <%= error_messages_for_attribute(@billing_address, :state) %>
+        </td>
+      <td>State</td>
+      <td>
+        <%= select_tag(:shipping_state, options_for_select(states_array)) %> 
+        <%= error_messages_for_attribute(@shipping_address, :state) %>
+      </td>
+    </tr>
+    <tr>
+      <td>Zip</td>
+      <td>
+        <%= text_field_tag(:billing_zip, @billing_address.zip) %>
+        <%= error_messages_for_attribute(@billing_address, :zip) %>
+      </td>
+      <td>Zip</td>
+      <td>
+        <%= text_field_tag(:shipping_zip, @shipping_address.zip) %>
+        <%= error_messages_for_attribute(@shipping_address, :zip) %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=4 style="border-bottom: solid 1px gray; padding: 10px 0px;"></td>
+    </tr>
+    <tr>
+      <td colspan=4>
+        Some credit card information or whatever.
+      </td>
+    </tr>
+    <tr>
+      <td colspan=4 style="border-bottom: solid 1px gray; padding: 10px 0px;"></td>
+    </tr>
+    <tr>
+      <td colspan=4>
+        Cart summary or whatever.
+      </td>
+    </tr>
+    <tr>
+      <td colspan=4 style="border-bottom: solid 1px gray; padding: 10px 0px;"></td>
+    </tr>
+    <tr>
+      <td colspan=4>
+        <%= submit_tag("Place Order") %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+</div>
