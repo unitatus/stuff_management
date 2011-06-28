@@ -92,4 +92,16 @@ class AccountController < ApplicationController
 
     render 'cart'
   end
+
+  def remove_cart_item
+    # find the cart so we can re-show the page
+    cart_item = CartItem.find(params[:cart_item_id])
+    @cart = Cart.find(cart_item.cart_id)
+   
+    CartItem.delete(params[:cart_item_id])
+
+    flash.now[:notice] = "Cart item removed."
+
+    render 'cart'
+  end
 end

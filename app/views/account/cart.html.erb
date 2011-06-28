@@ -25,7 +25,7 @@
       </th>
     </tr>
 <% if @cart.cart_items.empty? %>
-    <td colspan="4">You have no items in your cart.</td>
+    <td colspan="6">You have no items in your cart.</td>
 <% else %>
     <% @cart.cart_items.each do |cart_item| %>
       <% product = Product.find(cart_item.product_id) %>
@@ -38,7 +38,7 @@
           <td>$<%= product.price %> <%= product.price_comment %></td>
           <td><%= text_field_tag(:quantity, cart_item.quantity, :size => 5, :align => "center") %></td>
           <td><%= submit_tag("Update Quantity", :class => "cart_form_submit") %></td>
-          <td><a href="/cart/remove_item?cart_item_id=<%= cart_item.id %>">Remove</a></td>
+          <td><a href="/account/remove_cart_item?cart_item_id=<%= cart_item.id %>">Remove</a></td>
         </tr>
       <% end %>
     <% end %>
