@@ -77,17 +77,19 @@ class AccountController < ApplicationController
   end
 
   def update_cart_item
-    cart_item = CartItem.find(params[:cart_item_id])
+    @cart = Cart.find(params[:cart_id])
+    cart_item = @cart.cart_items.select {|c| c.id = params[:cart_item_id]}[0]
 
     cart_item.quantity = params[:quantity]
 
     if (cart_item.save())
-      flash[:notice] = "Cart item updated!"
+      flash.now[:notice] = "Cart item quantity updated to #{cart_item.quantity}!"
     else
-      flash[:alert] = "There was a problem saving your update."
+      flash.now[:alert] = "There was a problem saving your update."
       @errors = cart_item.errors
+      @cart = Cart.find(params[:cart_id])
     end
 
-    redirect_to :action => 'cart'
+    render 'cart'
   end
 end

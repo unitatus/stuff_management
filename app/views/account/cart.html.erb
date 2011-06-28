@@ -1,7 +1,8 @@
 <%= render 'account_nav' %>
 <div class="account_center">
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<p class="notice"><%= flash[:notice] %></p>
+<p class="alert"><%= flash[:alert] %></p>
+<%= render 'account_error_messages' %>
   <table class="cart_list">
     <tr>
       <th>
@@ -30,6 +31,7 @@
       <% product = Product.find(cart_item.product_id) %>
       <%= form_tag "/account/update_cart_item" do %>
         <%= hidden_field_tag(:cart_item_id, cart_item.id) %>
+        <%= hidden_field_tag(:cart_id, @cart.id) %>
         <tr>
           <td>#<%= product.id %></td>
           <td><%= product.name %></td>

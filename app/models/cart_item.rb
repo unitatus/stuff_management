@@ -15,4 +15,7 @@ class CartItem < ActiveRecord::Base
   attr_accessible :product_id, :quantity
 
   belongs_to :cart
+
+  validates_numericality_of :quantity, :only_integer => true
+  validates_presence_of :product_id
 end
