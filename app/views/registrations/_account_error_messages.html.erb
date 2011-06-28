@@ -1,0 +1,11 @@
+<% if @errors.any? %>
+  <div id="error_explanation" class="error_label">
+    Please correct the following <%= pluralize(@user.errors.count, "error") %>.
+    <ul>
+    <% @errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  </td></tr>
+<% end %>

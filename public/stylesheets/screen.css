@@ -214,12 +214,40 @@ table.order_boxes_table
 .account_center
 {
         position: relative;
-        top: 0px;
+        top: 5px;
         left: 130px;
         width: 100%;
         text-align: center;
         height: 400px;
 }
+table.cart_list
+{
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center;
+        border-spacing:0px;
+        border: solid black 1px;
+}
+table.cart_list td 
+{
+        border: solid black 1px;
+        padding: 6px;
+}
+table.cart_list th 
+{
+        border: solid black 1px;
+        padding: 6px;
+}
+table.cart_list tr 
+{
+        border: solid black 1px;
+}
+.cart_form_submit
+{
+        width:125px;
+        font-size:200%;
+}
+
 
 /**************************SIGN UP PAGE ********************************/
 .sign_up_form_narrow

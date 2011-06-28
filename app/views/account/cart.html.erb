@@ -1,0 +1,45 @@
+<%= render 'account_nav' %>
+<div class="account_center">
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+  <table class="cart_list">
+    <tr>
+      <th>
+        Product #
+      </th>
+      <th>
+        Description
+      </th>
+      <th>
+        Price
+      </th>
+      <th>
+        Quantity
+      </th>
+      <th>
+        Update Quantity
+      </th>
+      <th>
+        Remove?
+      </th>
+    </tr>
+<% if @cart.cart_items.empty? %>
+    <td colspan="4">You have no items in your cart.</td>
+<% else %>
+    <% @cart.cart_items.each do |cart_item| %>
+      <% product = Product.find(cart_item.product_id) %>
+      <%= form_tag "/account/update_cart_item" do %>
+        <%= hidden_field_tag(:cart_item_id, cart_item.id) %>
+        <tr>
+          <td>#<%= product.id %></td>
+          <td><%= product.name %></td>
+          <td>$<%= product.price %> <%= product.price_comment %></td>
+          <td><%= text_field_tag(:quantity, cart_item.quantity, :size => 5, :align => "center") %></td>
+          <td><%= submit_tag("Update Quantity", :class => "cart_form_submit") %></td>
+          <td><a href="/cart/remove_item?cart_item_id=<%= cart_item.id %>">Remove</a></td>
+        </tr>
+      <% end %>
+    <% end %>
+<% end %>
+  </table>
+</div>

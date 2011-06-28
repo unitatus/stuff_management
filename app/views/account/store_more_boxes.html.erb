@@ -11,18 +11,13 @@
 <%= form_tag("/account/order_boxes") do %>
   <tr>
     <td>Number of boxes you would like to store:</td>
-    <td><%= text_field_tag(:num_boxes_yours) %></td>
-    <td><%= text_field_tag(:num_boxes_ours) %></td>
+    <td><%= number_field_tag(:num_boxes_yours) %></td>
+    <td><%= number_field_tag(:num_boxes_ours) %></td>
   </tr>
   <tr>
     <td>How many of each type would you like insured?</td>
-    <td><%= text_field_tag(:num_boxes_yours_insured) %></td>
-    <td><%= text_field_tag(:num_boxes_ours_insured) %></td>
-  </tr>
-  <tr>
-    <td>How many of each type would you like inventoried?</td>
-    <td><%= text_field_tag(:num_boxes_yours_inventoried) %></td>
-    <td><%= text_field_tag(:num_boxes_ours_inventoried) %></td>
+    <td><%= number_field_tag(:num_boxes_yours_insured) %></td>
+    <td><%= number_field_tag(:num_boxes_ours_insured) %></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -32,9 +27,10 @@
 </table>
 <p><br><br><br>
 All Visible Closet boxes are 12"X12"X24".
+<br>You will get a chance to inventory boxes later! We promise!
 <p>
 <table class="user_list_table"><tr>
-<th colspan=3>Pricing</th>
+<th colspan=3 align="center">Pricing</th>
 </tr>
 <tr>
   <td rowspan=2>Storage</td>
@@ -50,13 +46,6 @@ All Visible Closet boxes are 12"X12"X24".
 </tr><tr>
   <td>Insuring your box:</td>
   <td>$<%= @your_box_insurance.price %> <%= @your_box_insurance.price_comment %></td>
-</tr><tr>
-  <td rowspan=2>Inventorying</td>
-  <td>Inventorying a Visible Storage box:</td>
-  <td>$<%= @our_box_inventorying.price %> <%= @our_box_inventorying.price_comment %></td>
-</tr><tr>
-  <td>Inventorying your box:</td>
-  <td>$<%= @your_box_inventorying.price %> <%= @your_box_inventorying.price_comment %></td>
 </tr>
 </table>
 </div>

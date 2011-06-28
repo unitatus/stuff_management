@@ -14,6 +14,8 @@ StuffManagement::Application.routes.draw do
   post "admin/send_boxes_user_search"
   get "account/store_more_boxes"
   post "account/order_boxes"
+  get "account/cart"
+  post "account/update_cart_item"
 
   match "account/home" => "account#index"
 
