@@ -255,6 +255,7 @@ table.check_out
 table.check_out td
 {
         padding: 6px;
+        vertical-align: top;
 }
 .check_out_form_fields
 {

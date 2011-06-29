@@ -8,7 +8,7 @@
     </tr>
     <tr>
       <td colspan=2">&nbsp;</td>
-      <td colspan="2"><%= check_box("submission", "same_as_shipping") %> Same as shipping address</td>
+      <td colspan="2"><%= check_box("same_as_shipping", "same_as_shipping") %> Same as shipping address</td>
     </tr>
     <tr>
       <td>First Name:</td>
@@ -142,7 +142,7 @@
               <%= error_messages_for_attribute(@credit_card, :type) %>
             </td>
           </tr><tr>
-            <td>Card Number</td>
+            <td>Card Number*</td>
             <td>
               <%= text_field_tag(:cc_number, @credit_card.number, :class => "check_out_form_fields") %>
               <%= error_messages_for_attribute(@credit_card, :number) %>
@@ -163,6 +163,10 @@
             <td>
               <%= error_messages_for_attribute(@credit_card, :security_code) %>
               <%= error_messages_for_attribute(@credit_card, :security_code) %>
+            </td>
+          </tr><tr>
+            <td colspan=2>
+              <div style="color:red">*At this time the site does not do anything with credit cards, but it is not yet secure, so please don't enter a real credit card number.</div>
             </td>
           </tr>
         </table>

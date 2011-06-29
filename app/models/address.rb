@@ -1,19 +1,20 @@
 class Address < ActiveRecord::Base
-  validates :first_name, :presence => true
-  validates :last_name, :presence => true
-  validates :day_phone, :presence => true
-  validates :address_line_1, :presence => true
-  validates :city, :presence => true
-  validates :state, :presence => true
-  validates :zip, :presence => true
-  validates_format_of :phone, :with => /^[0-9]{3,3}-[0-9]{3,3}-[0-9]{4,4}$/, :message => "Phone number format is not valid (xxx-xxx-xxxx)."
+  validates_presence_of :first_name, :message => "First name cannot be blank"
+  validates_presence_of :last_name, :message => "Last name cannot be blank"
+  validates_presence_of :day_phone, :message => "Day phone cannot be blank"
+  validates_presence_of :address_line_1, :message => "Address line 1 cannot be blank"
+  validates_presence_of :city, :message => "City cannot be blank"
+  validates_presence_of :state, :message => "State must be selected"
+  validates_presence_of :zip, :message => "Zip code cannot be blank"
+  validates_format_of :day_phone, :with => /^[0-9]{3,3}-[0-9]{3,3}-[0-9]{4,4}$/, :message => "Phone number format is not valid"
+  validates_format_of :evening_phone, :with => /^[0-9]{3,3}-[0-9]{3,3}-[0-9]{4,4}$/, :message => "Phone number format is not valid"
 
   def day_phone=(phone)
     @day_phone=convert_phone(phone)
   end
 
   def evening_phone=(phone)
-    @day_phone=convert_phone(phone)
+    @evening_phone=convert_phone(phone)
   end
 
   def convert_phone(phone)

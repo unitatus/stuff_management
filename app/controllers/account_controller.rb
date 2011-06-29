@@ -135,4 +135,41 @@ class AccountController < ApplicationController
     @shipping_address = Address.new
     @credit_card = CreditCard.new
   end
+
+  def finalize_check_out
+    @cart = Cart.find_by_user_id(current_user.id)
+    @credit_card = CreditCard.new
+    @billing_address = Address.new
+
+    @billing_address.first_name = params[:billing_first_name]
+    @billing_address.last_name = params[:billing_last_name]
+    @billing_address.day_phone = params[:billing_day_phone]
+    @billing_address.evening_phone = params[:billing_evening_phone]
+    @billing_address.address_line_1 = params[:billing_address_line_1]
+    @billing_address.address_line_2 = params[:billing_address_line_2]
+    @billing_address.city = params[:billing_address_city]
+    @billing_address.state = params[:billing_address_state]
+    @billing_address.zip = params[:billing_address_zip]
+
+    if (params[:same_as_shipping][:same_as_shipping] == "1")
+      @shipping_address = @billing_address
+    else
+      @shipping_address = Address.new
+
+      @shipping_address.first_name = params[:shipping_first_name]
+      @shipping_address.last_name = params[:shipping_last_name]
+      @shipping_address.day_phone = params[:shipping_day_phone]
+      @shipping_address.evening_phone = params[:shipping_evening_phone]
+      @shipping_address.address_line_1 = params[:shipping_address_line_1]
+      @shipping_address.address_line_2 = params[:shipping_address_line_2]
+      @shipping_address.city = params[:shipping_address_city]
+      @shipping_address.state = params[:shipping_address_state]
+    end
+
+    # holding off on saving until debugged and fully functional
+    if (!@billing_address.valid? || !@shipping_address.valid?)
+      render 'check_out'
+      return
+    end
+  end
 end
