@@ -133,5 +133,6 @@ class AccountController < ApplicationController
     @cart = Cart.find_by_user_id(current_user.id)
     @billing_address = Address.new
     @shipping_address = Address.new
+    @credit_card = CreditCard.new
   end
 end

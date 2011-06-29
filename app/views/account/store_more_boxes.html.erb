@@ -43,17 +43,17 @@ All Visible Closet boxes are 12"X12"X24".
 <tr>
   <td rowspan=2>Uninsured</td>
   <td>Storing a Visible Storage box, uninsured: </td>
-  <td>$<%= @our_box_uninsured.price %> <%= @our_box_uninsured.price_comment %></td>
+  <td><%= number_to_currency(@our_box_uninsured.price) %> <%= @our_box_uninsured.price_comment %></td>
 </tr><tr>
   <td>Storing your box, uninsured:</td>
-  <td>$<%= @your_box_uninsured.price %> <%= @your_box_uninsured.price_comment %></td>
+  <td><%= number_to_currency(@your_box_uninsured.price) %> <%= @your_box_uninsured.price_comment %></td>
 </tr><tr>
   <td rowspan=2>Insured</td>
   <td>Storing a Visible Storage box, insured: </td>
-  <td>$<%= @our_box_insured.price %> <%= @our_box_insured.price_comment %></td>
+  <td><%= number_to_currency(@our_box_insured.price) %> <%= @our_box_insured.price_comment %></td>
 </tr><tr>
   <td>Storing your box, insured:</td>
-  <td>$<%= @your_box_insured.price %> <%= @your_box_insured.price_comment %></td>
+  <td><%= number_to_currency(@your_box_insured.price) %> <%= @your_box_insured.price_comment %></td>
 </tr>
 </table>
 </div>

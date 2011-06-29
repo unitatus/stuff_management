@@ -247,7 +247,36 @@ table.cart_list tr
         width:125px;
         font-size:200%;
 }
-
+table.check_out
+{
+        text-align: left;
+        padding: 6px;
+}
+table.check_out td
+{
+        padding: 6px;
+}
+.check_out_form_fields
+{
+        font-size: 115%;
+}
+.check_out_form_small_field
+{
+        font-size: 115%;
+        width: 50px;
+}
+table.check_out_cart_summary
+{
+        width: 100%
+}
+table.check_out_cart_summary td
+{
+        text-align: center;
+}
+table.check_out_cart_summary th
+{
+        text-align: center;
+}
 
 /**************************SIGN UP PAGE ********************************/
 .sign_up_form_narrow

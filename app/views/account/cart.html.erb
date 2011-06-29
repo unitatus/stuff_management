@@ -37,9 +37,9 @@
         <tr>
           <td>#<%= product.id %></td>
           <td><%= product.name %></td>
-          <td>$<%= product.price %> <%= product.price_comment %></td>
+          <td><%= number_to_currency(product.price) %> <%= product.price_comment %></td>
           <td><%= text_field_tag(:quantity, cart_item.quantity, :size => 5, :align => "center") %></td>
-          <td>$<%= product.price * cart_item.quantity %></td>
+          <td><%= number_to_currency(product.price * cart_item.quantity) %></td>
           <td><%= submit_tag("Update Quantity", :class => "cart_form_submit") %></td>
           <td><a href="/account/remove_cart_item?cart_item_id=<%= cart_item.id %>">Remove</a></td>
         </tr>
@@ -47,8 +47,12 @@
     <% end # cart item loop %>
       <tr>
         <td colspan="4" align="right">Estimated Total / Month*:</td>
-        <td>$<%= @cart.estimated_total %></td>
-        <td colspan="2"><a href="/account/check_out">Check Out >>></a></td>
+        <td><%= number_to_currency(@cart.estimated_total) %></td>
+        <td colspan="2">
+<% if !@cart.cart_items.empty? %>
+          <a href="/account/check_out">Check Out >>></a>
+<% end %>
+        </td>
       </tr>
 <% end %>
   </table>

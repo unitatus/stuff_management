@@ -9,6 +9,14 @@ module ApplicationHelper
     end
   end
 
+  def cc_types
+    ['Select Card',
+     'American Express',
+     'Discover',
+     'Mastercard',
+     'Visa']
+  end
+
   def states_array
     ['AK',
 	'AL',

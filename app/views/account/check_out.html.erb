@@ -1,7 +1,7 @@
 <%= render 'account_nav' %>
 <div class="account_center">
 <%= form_tag("/account/finalize_check_out") do %>
-  <table class="order_boxes_table">
+  <table class="check_out">
     <tr>
       <th colspan="2">Billing Information</th>
       <th colspan="2">Shipping Information</th>
@@ -13,92 +13,90 @@
     <tr>
       <td>First Name:</td>
       <td>
-        <%= text_field_tag(:billing_first_name, @billing_address.first_name) %>
+        <%= text_field_tag(:billing_first_name, @billing_address.first_name, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :first_name) %>
       </td>
       <td>First Name:</td>
       <td>
-        <%= text_field_tag(:shipping_first_name, @shipping_address.first_name) %>
+        <%= text_field_tag(:shipping_first_name, @shipping_address.first_name, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@shipping_address, :first_name) %>
       </td>
     </tr>
     <tr>
       <td>Last Name:</td>
       <td>
-        <%= text_field_tag(:billing_last_name, @billing_address.last_name) %>
+        <%= text_field_tag(:billing_last_name, @billing_address.last_name, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :last_name) %>
       </td>
       <td>Last Name:</td>
       <td>
-        <%= text_field_tag(:shipping_last_name, @shipping_address.last_name) %>
+        <%= text_field_tag(:shipping_last_name, @shipping_address.last_name, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@shipping_address, :last_name) %>
       </td>
     </tr>
     <tr>
      <td>Day Time Phone:</td>
-     <td><%= text_field_tag(:billing_day_phone, @billing_address.day_phone) %>
+     <td><%= text_field_tag(:billing_day_phone, @billing_address.day_phone, :class => "check_out_form_fields") %>
          <%= error_messages_for_attribute(@billing_address, :day_phone) %>
      </td>
      <td>Day Time Phone:</td>
-     <td><%= text_field_tag(:shipping_day_phone, @shipping_address.day_phone) %>
+     <td><%= text_field_tag(:shipping_day_phone, @shipping_address.day_phone, :class => "check_out_form_fields") %>
          <%= error_messages_for_attribute(@shipping_address, :day_phone) %>
      </td>
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td>Format: ###-###-####</td>
-      <td colspan=2>&nbsp;</td>
+      <td colspan=3>Format: ###-###-####</td>
     </tr>
     <tr>
      <td>Evening Phone:</td>
      <td>
-         <%= text_field_tag(:billing_evening_phone, @billing_address.evening_phone) %>
+         <%= text_field_tag(:billing_evening_phone, @billing_address.evening_phone, :class => "check_out_form_fields") %>
          <%= error_messages_for_attribute(@billing_address, :evening_phone) %>
      </td>
      <td>Evening Phone:</td>
      <td>
-         <%= text_field_tag(:shipping_evening_phone, @shipping_address.evening_phone) %>
+         <%= text_field_tag(:shipping_evening_phone, @shipping_address.evening_phone, :class => "check_out_form_fields") %>
          <%= error_messages_for_attribute(@shipping_address, :evening_phone) %>
      </td>
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td>Format: ###-###-####</td>
-      <td colspan=2>&nbsp;</td>
+      <td colspan=3>Format: ###-###-####</td>
     </tr>
     <tr>
       <td>Address Line 1</td>
       <td>
-        <%= text_field_tag(:billing_address_line_1, @billing_address.address_line_1) %>
+        <%= text_field_tag(:billing_address_line_1, @billing_address.address_line_1, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :address_line_1) %>
       </td>
       <td>Address Line 1</td>
       <td>
-        <%= text_field_tag(:shipping_address_line_1, @shipping_address.address_line_1) %>
+        <%= text_field_tag(:shipping_address_line_1, @shipping_address.address_line_1, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@shipping_address, :address_line_1) %>
       </td>
     </tr>
     <tr>
       <td>Address Line 2</td>
       <td>
-        <%= text_field_tag(:billing_address_line_2, @billing_address.address_line_2) %>
+        <%= text_field_tag(:billing_address_line_2, @billing_address.address_line_2, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :address_line_2) %>
       </td>
       <td>Address Line 2</td>
       <td>
-        <%= text_field_tag(:shipping_address_line_2, @shipping_address.address_line_2) %>
+        <%= text_field_tag(:shipping_address_line_2, @shipping_address.address_line_2, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@shipping_address, :address_line_2) %>
        </td>
     </tr>
     <tr>
       <td>City</td>
       <td>
-        <%= text_field_tag(:billing_city, @billing_address.city) %>
+        <%= text_field_tag(:billing_city, @billing_address.city, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :city) %>
       </td>
       <td>City</td>
       <td>
-        <%= text_field_tag(:shipping_city, @shipping_address.city) %>
+        <%= text_field_tag(:shipping_city, @shipping_address.city, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@shipping_address, :city) %>
       </td>
     </tr>
@@ -110,19 +108,19 @@
         </td>
       <td>State</td>
       <td>
-        <%= select_tag(:shipping_state, options_for_select(states_array)) %> 
+        <%= select_tag(:shipping_state, options_for_select(states_array), :include_blank => true) %> 
         <%= error_messages_for_attribute(@shipping_address, :state) %>
       </td>
     </tr>
     <tr>
       <td>Zip</td>
       <td>
-        <%= text_field_tag(:billing_zip, @billing_address.zip) %>
+        <%= text_field_tag(:billing_zip, @billing_address.zip, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :zip) %>
       </td>
       <td>Zip</td>
       <td>
-        <%= text_field_tag(:shipping_zip, @shipping_address.zip) %>
+        <%= text_field_tag(:shipping_zip, @shipping_address.zip, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@shipping_address, :zip) %>
       </td>
     </tr>
@@ -130,8 +128,44 @@
       <td colspan=4 style="border-bottom: solid 1px gray; padding: 10px 0px;"></td>
     </tr>
     <tr>
+      <th colspan=4>
+        Credit Card Details
+      </th>
+    </tr>
+    <tr>
       <td colspan=4>
-        Some credit card information or whatever.
+        <table>
+          <tr>
+            <td>Cart Type</td>
+            <td>
+              <%= select_tag(:cc_type, options_for_select(cc_types), :class => "check_out_form_fields") %>
+              <%= error_messages_for_attribute(@credit_card, :type) %>
+            </td>
+          </tr><tr>
+            <td>Card Number</td>
+            <td>
+              <%= text_field_tag(:cc_number, @credit_card.number, :class => "check_out_form_fields") %>
+              <%= error_messages_for_attribute(@credit_card, :number) %>
+            </td>
+          </tr><tr>
+            <td>Security Code</td>
+            <td>
+              <%= text_field_tag(:security_code, @credit_card.security_code, :class => "check_out_form_small_field") %>
+              <%= error_messages_for_attribute(@credit_card, :security_code) %>
+            </td>
+          </tr><tr>
+            <td>Expiration Date</td>
+            <td>
+              Month <%= text_field_tag(:expiration_month, @credit_card.expiration_month, :class => "check_out_form_small_field") %> Year <%= text_field_tag(:expiration_year, @credit_card.expiration_year, :class => "check_out_form_small_field") %>
+            </td>
+          </tr><tr>
+            <td></td>
+            <td>
+              <%= error_messages_for_attribute(@credit_card, :security_code) %>
+              <%= error_messages_for_attribute(@credit_card, :security_code) %>
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
     <tr>
@@ -139,15 +173,41 @@
     </tr>
     <tr>
       <td colspan=4>
-        Cart summary or whatever.
+        <table class="check_out_cart_summary">
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total Price</th>
+          </tr>
+<% @cart.cart_items.each do |cart_item| %>
+          <% product = Product.find(cart_item.product_id) %>
+          <tr>
+            <td align="left">
+              <%= product.name %>
+            </td>
+            <td>
+              <%= cart_item.quantity %>
+            </td>
+            <td>
+              <%= number_to_currency(product.price) %>
+            </td>
+            <td align="right">
+              <%= number_to_currency(product.price * cart_item.quantity) %>
+            </td>
+          </tr>
+<% end %>
+        </table>
       </td>
     </tr>
     <tr>
       <td colspan=4 style="border-bottom: solid 1px gray; padding: 10px 0px;"></td>
     </tr>
     <tr>
-      <td colspan=4>
-        <%= submit_tag("Place Order") %>
+      <td colspan=4 align="right">
+        Total: <%= number_to_currency(@cart.estimated_total) %>
+        <br><br>
+        <%= submit_tag("Place Order", :class => "cart_form_submit") %>
       </td>
     </tr>
   </table>

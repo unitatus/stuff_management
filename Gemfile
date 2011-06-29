@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'devise'
 gem 'paperclip'
 gem 'validatable'
+gem 'activemerchant'
 
 group :development do
   gem 'rspec-rails'
