@@ -5,7 +5,6 @@ module ApplicationHelper
     else # assume validatable for now
       error_messages = object.errors.on(attribute)
     end
-
     if (error_messages)
       html = '<div class="error_label">'
       error_messages.each do |message|

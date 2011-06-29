@@ -1,4 +1,6 @@
 class Address < ActiveRecord::Base
+  attr_accessible :first_name, :last_name, :day_phone, :evening_phone, :address_line_1, :address_line_2, :city, :state
+
   validates_presence_of :first_name, :message => "First name cannot be blank"
   validates_presence_of :last_name, :message => "Last name cannot be blank"
   validates_presence_of :day_phone, :message => "Day phone cannot be blank"
@@ -6,24 +8,17 @@ class Address < ActiveRecord::Base
   validates_presence_of :city, :message => "City cannot be blank"
   validates_presence_of :state, :message => "State must be selected"
   validates_presence_of :zip, :message => "Zip code cannot be blank"
-  validates_format_of :day_phone, :with => /^[0-9]{3,3}-[0-9]{3,3}-[0-9]{4,4}$/, :message => "Phone number format is not valid"
-  validates_format_of :evening_phone, :with => /^[0-9]{3,3}-[0-9]{3,3}-[0-9]{4,4}$/, :message => "Phone number format is not valid"
 
-  def day_phone=(phone)
-    @day_phone=convert_phone(phone)
+  validates_length_of :day_phone, :minimum => 10, :maximum => 10, :message => "Please enter a 10-digit phone number", :unless => :skip_day_content_validation
+  validates_numericality_of :day_phone, :message => "Please enter only numbers for the phone", :unless => :skip_day_content_validation
+  validates_length_of :evening_phone, :minimum => 10, :maximum => 10, :message => "Please enter a 10-digit phone number", :unless => :skip_evening_content_validation
+  validates_numericality_of :evening_phone, :message => "Please enter only numbers for the phone", :unless => :skip_evening_content_validation
+
+  def skip_day_content_validation
+    day_phone.empty?
   end
 
-  def evening_phone=(phone)
-    @evening_phone=convert_phone(phone)
-  end
-
-  def convert_phone(phone)
-    phone.gsub(/[^0-9]/, "").gsub(/^([0-9]{0,3})([0-9]{0,3})([0-9]{0,})$/) do |match|
-      tmp = ""
-      tmp += $1 if $1.size > 0
-      tmp += "-" + $2 if $2.size > 0
-      tmp += "-" + $3 if $3.size > 0
-      tmp
-    end
+  def skip_evening_content_validation
+    evening_phone.empty?
   end
 end

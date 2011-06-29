@@ -29,6 +29,9 @@ a:hover
 .field_with_errors label {
   color: #fff;
 }
+.disabled_field {
+  color: grey;
+}
 .oneColFixCtrHdr #container
 {        width: 980px; /* using 20px less than a full 800px width allows for brow
 ser chrome and avoids a horizontal scroll bar */
@@ -260,6 +263,11 @@ table.check_out td
 .check_out_form_fields
 {
         font-size: 115%;
+}
+.check_out_form_field_disabled
+{
+        font-size: 115%;
+        color: grey;
 }
 .check_out_form_small_field
 {

@@ -143,28 +143,33 @@ class AccountController < ApplicationController
 
     @billing_address.first_name = params[:billing_first_name]
     @billing_address.last_name = params[:billing_last_name]
-    @billing_address.day_phone = params[:billing_day_phone]
-    @billing_address.evening_phone = params[:billing_evening_phone]
+    @billing_address.day_phone = params[:billing_day_phone].gsub(/\D/, "")
+    @billing_address.evening_phone = params[:billing_evening_phone].gsub(/\D/, "")
     @billing_address.address_line_1 = params[:billing_address_line_1]
     @billing_address.address_line_2 = params[:billing_address_line_2]
-    @billing_address.city = params[:billing_address_city]
-    @billing_address.state = params[:billing_address_state]
-    @billing_address.zip = params[:billing_address_zip]
+    @billing_address.city = params[:billing_city]
+    @billing_address.state = params[:billing_state]
+    @billing_address.zip = params[:billing_zip]
 
-    if (params[:same_as_shipping][:same_as_shipping] == "1")
+    if (params[:same_as_billing][:same_as_billing] == "1")
       @shipping_address = @billing_address
     else
       @shipping_address = Address.new
 
       @shipping_address.first_name = params[:shipping_first_name]
       @shipping_address.last_name = params[:shipping_last_name]
-      @shipping_address.day_phone = params[:shipping_day_phone]
-      @shipping_address.evening_phone = params[:shipping_evening_phone]
+      @shipping_address.day_phone = params[:shipping_day_phone].gsub(/\D/, "")
+      @shipping_address.evening_phone = params[:shipping_evening_phone].gsub(/\D/, "")
       @shipping_address.address_line_1 = params[:shipping_address_line_1]
       @shipping_address.address_line_2 = params[:shipping_address_line_2]
-      @shipping_address.city = params[:shipping_address_city]
-      @shipping_address.state = params[:shipping_address_state]
+      @shipping_address.city = params[:shipping_city]
+      @shipping_address.state = params[:shipping_state]
+      @shipping_address.zip = params[:shipping_zip]
     end
+
+   # We have to call valid? on each object in order for error messages to be generated
+   @billing_address.valid?
+   @shipping_address.valid?
 
     # holding off on saving until debugged and fully functional
     if (!@billing_address.valid? || !@shipping_address.valid?)

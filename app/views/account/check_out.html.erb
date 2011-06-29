@@ -1,3 +1,49 @@
+<script type="text/javascript">
+function ship_same_toggle()
+{
+    var form = document.forms[0];
+
+    var checked = form.same_as_billing_same_as_billing.checked
+
+    form.shipping_first_name.disabled = checked
+    form.shipping_first_name.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
+    document.getElementById("shipping_first_name_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+
+    form.shipping_last_name.disabled = checked
+    form.shipping_last_name.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
+    document.getElementById("shipping_last_name_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+
+    form.shipping_day_phone.disabled = checked
+    form.shipping_day_phone.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
+    document.getElementById("shipping_day_phone_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+
+    form.shipping_evening_phone.disabled = checked
+    form.shipping_evening_phone.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
+    document.getElementById("shipping_evening_phone_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    
+    form.shipping_address_line_1.disabled = checked
+    form.shipping_address_line_1.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
+    document.getElementById("shipping_address_line_1_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+
+    form.shipping_address_line_2.disabled = checked
+    form.shipping_address_line_2.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
+    document.getElementById("shipping_address_line_2_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+
+    form.shipping_city.disabled = checked
+    form.shipping_city.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
+    document.getElementById("shipping_city_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+
+    form.shipping_state.disabled = checked
+    form.shipping_state.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
+    document.getElementById("shipping_state_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+
+    form.shipping_zip.disabled = checked
+    form.shipping_zip.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
+    document.getElementById("shipping_zip_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+}
+
+window.onload=ship_same_toggle;
+</script>
 <%= render 'account_nav' %>
 <div class="account_center">
 <%= form_tag("/account/finalize_check_out") do %>
@@ -8,7 +54,7 @@
     </tr>
     <tr>
       <td colspan=2">&nbsp;</td>
-      <td colspan="2"><%= check_box("same_as_shipping", "same_as_shipping") %> Same as shipping address</td>
+      <td colspan="2"><%= check_box("same_as_billing", "same_as_billing", {:onclick=>"ship_same_toggle();", :checked => (@billing_address == @shipping_address)}) %> Same as billing address</td>
     </tr>
     <tr>
       <td>First Name:</td>
@@ -16,10 +62,10 @@
         <%= text_field_tag(:billing_first_name, @billing_address.first_name, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :first_name) %>
       </td>
-      <td>First Name:</td>
+      <td><div id="shipping_first_name_text">First Name:</div></td>
       <td>
         <%= text_field_tag(:shipping_first_name, @shipping_address.first_name, :class => "check_out_form_fields") %>
-        <%= error_messages_for_attribute(@shipping_address, :first_name) %>
+        <%= error_messages_for_attribute(@shipping_address, :first_name) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
@@ -28,20 +74,20 @@
         <%= text_field_tag(:billing_last_name, @billing_address.last_name, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :last_name) %>
       </td>
-      <td>Last Name:</td>
+      <td><div id="shipping_last_name_text">Last Name:</div></td>
       <td>
         <%= text_field_tag(:shipping_last_name, @shipping_address.last_name, :class => "check_out_form_fields") %>
-        <%= error_messages_for_attribute(@shipping_address, :last_name) %>
+        <%= error_messages_for_attribute(@shipping_address, :last_name) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
      <td>Day Time Phone:</td>
-     <td><%= text_field_tag(:billing_day_phone, @billing_address.day_phone, :class => "check_out_form_fields") %>
+     <td><%= text_field_tag(:billing_day_phone, number_to_phone(@billing_address.day_phone), :class => "check_out_form_fields") %>
          <%= error_messages_for_attribute(@billing_address, :day_phone) %>
      </td>
-     <td>Day Time Phone:</td>
-     <td><%= text_field_tag(:shipping_day_phone, @shipping_address.day_phone, :class => "check_out_form_fields") %>
-         <%= error_messages_for_attribute(@shipping_address, :day_phone) %>
+     <td><div id="shipping_day_phone_text">Day Time Phone:</div></td>
+     <td><%= text_field_tag(:shipping_day_phone, number_to_phone(@shipping_address.day_phone), :class => "check_out_form_fields") %>
+         <%= error_messages_for_attribute(@shipping_address, :day_phone) if (@billing_address != @shipping_address) %>
      </td>
     </tr>
     <tr>
@@ -51,13 +97,13 @@
     <tr>
      <td>Evening Phone:</td>
      <td>
-         <%= text_field_tag(:billing_evening_phone, @billing_address.evening_phone, :class => "check_out_form_fields") %>
+         <%= text_field_tag(:billing_evening_phone, number_to_phone(@billing_address.evening_phone), :class => "check_out_form_fields") %>
          <%= error_messages_for_attribute(@billing_address, :evening_phone) %>
      </td>
-     <td>Evening Phone:</td>
+     <td><div id="shipping_evening_phone_text">Evening Phone:</div></td>
      <td>
-         <%= text_field_tag(:shipping_evening_phone, @shipping_address.evening_phone, :class => "check_out_form_fields") %>
-         <%= error_messages_for_attribute(@shipping_address, :evening_phone) %>
+         <%= text_field_tag(:shipping_evening_phone, number_to_phone(@shipping_address.evening_phone), :class => "check_out_form_fields") %>
+         <%= error_messages_for_attribute(@shipping_address, :evening_phone) if (@billing_address != @shipping_address) %>
      </td>
     </tr>
     <tr>
@@ -70,10 +116,10 @@
         <%= text_field_tag(:billing_address_line_1, @billing_address.address_line_1, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :address_line_1) %>
       </td>
-      <td>Address Line 1</td>
+      <td><div id="shipping_address_line_1_text">Address Line 1</div></td>
       <td>
         <%= text_field_tag(:shipping_address_line_1, @shipping_address.address_line_1, :class => "check_out_form_fields") %>
-        <%= error_messages_for_attribute(@shipping_address, :address_line_1) %>
+        <%= error_messages_for_attribute(@shipping_address, :address_line_1) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
@@ -82,10 +128,10 @@
         <%= text_field_tag(:billing_address_line_2, @billing_address.address_line_2, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :address_line_2) %>
       </td>
-      <td>Address Line 2</td>
+      <td><div id="shipping_address_line_2_text">Address Line 2</div></td>
       <td>
         <%= text_field_tag(:shipping_address_line_2, @shipping_address.address_line_2, :class => "check_out_form_fields") %>
-        <%= error_messages_for_attribute(@shipping_address, :address_line_2) %>
+        <%= error_messages_for_attribute(@shipping_address, :address_line_2) if (@billing_address != @shipping_address) %>
        </td>
     </tr>
     <tr>
@@ -94,22 +140,22 @@
         <%= text_field_tag(:billing_city, @billing_address.city, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :city) %>
       </td>
-      <td>City</td>
+      <td><div id="shipping_city_text">City</div></td>
       <td>
         <%= text_field_tag(:shipping_city, @shipping_address.city, :class => "check_out_form_fields") %>
-        <%= error_messages_for_attribute(@shipping_address, :city) %>
+        <%= error_messages_for_attribute(@shipping_address, :city) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
       <td>State</td>
       <td>
-        <%= select_tag(:billing_state, options_for_select(states_array), :include_blank => true) %> 
+        <%= select_tag(:billing_state, options_for_select(states_array, @billing_address.state), :include_blank => true) %> 
         <%= error_messages_for_attribute(@billing_address, :state) %>
         </td>
-      <td>State</td>
+      <td><div id="shipping_state_text">State</div></td>
       <td>
-        <%= select_tag(:shipping_state, options_for_select(states_array), :include_blank => true) %> 
-        <%= error_messages_for_attribute(@shipping_address, :state) %>
+        <%= select_tag(:shipping_state, options_for_select(states_array, @shipping_address.state), :include_blank => true) %> 
+        <%= error_messages_for_attribute(@shipping_address, :state) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
@@ -118,10 +164,10 @@
         <%= text_field_tag(:billing_zip, @billing_address.zip, :class => "check_out_form_fields") %>
         <%= error_messages_for_attribute(@billing_address, :zip) %>
       </td>
-      <td>Zip</td>
+      <td><div id="shipping_zip_text">Zip</div></td>
       <td>
         <%= text_field_tag(:shipping_zip, @shipping_address.zip, :class => "check_out_form_fields") %>
-        <%= error_messages_for_attribute(@shipping_address, :zip) %>
+        <%= error_messages_for_attribute(@shipping_address, :zip) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
