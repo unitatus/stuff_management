@@ -3,8 +3,9 @@ module ApplicationHelper
     if (object.kind_of? ActiveRecord::Base)
       error_messages = object.errors[attribute]
     else # assume validatable for now
-      error_messages = object.errors.on(attribute)
+      error_messages = object.errors.raw(attribute)
     end
+
     if (error_messages)
       html = '<div class="error_label">'
       error_messages.each do |message|
@@ -18,8 +19,7 @@ module ApplicationHelper
   end
 
   def cc_types
-    ['Select Card',
-     'American Express',
+    ['American Express',
      'Discover',
      'Mastercard',
      'Visa']

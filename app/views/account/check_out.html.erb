@@ -182,9 +182,9 @@ window.onload=ship_same_toggle;
       <td colspan=4>
         <table>
           <tr>
-            <td>Cart Type</td>
+            <td>Card Type</td>
             <td>
-              <%= select_tag(:cc_type, options_for_select(cc_types), :class => "check_out_form_fields") %>
+              <%= select_tag(:cc_type, options_for_select(cc_types, @credit_card.type), :class => "check_out_form_fields", :include_blank => true) %>
               <%= error_messages_for_attribute(@credit_card, :type) %>
             </td>
           </tr><tr>
@@ -207,8 +207,8 @@ window.onload=ship_same_toggle;
           </tr><tr>
             <td></td>
             <td>
-              <%= error_messages_for_attribute(@credit_card, :security_code) %>
-              <%= error_messages_for_attribute(@credit_card, :security_code) %>
+              <%= error_messages_for_attribute(@credit_card, :expiration_month) %>
+              <%= error_messages_for_attribute(@credit_card, :expiration_year) %>
             </td>
           </tr><tr>
             <td colspan=2>

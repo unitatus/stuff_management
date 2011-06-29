@@ -167,12 +167,19 @@ class AccountController < ApplicationController
       @shipping_address.zip = params[:shipping_zip]
     end
 
-   # We have to call valid? on each object in order for error messages to be generated
-   @billing_address.valid?
-   @shipping_address.valid?
+    @credit_card.type = params[:cc_type]
+    @credit_card.number = params[:cc_number]
+    @credit_card.security_code = params[:security_code]
+    @credit_card.expiration_month = params[:expiration_month]
+    @credit_card.expiration_year = params[:expiration_year]
+
+    # We have to call valid? on each object in order for error messages to be generated
+    @billing_address.valid?
+    @shipping_address.valid?
+    @credit_card.valid?
 
     # holding off on saving until debugged and fully functional
-    if (!@billing_address.valid? || !@shipping_address.valid?)
+    if (!@billing_address.valid? || !@shipping_address.valid? || !@credit_card.valid?)
       render 'check_out'
       return
     end
