@@ -57,6 +57,20 @@ window.onload=ship_same_toggle;
       <td colspan="2"><%= check_box("same_as_billing", "same_as_billing", {:onclick=>"ship_same_toggle();", :checked => (@billing_address == @shipping_address)}) %> Same as billing address</td>
     </tr>
     <tr>
+      <td>
+        Address Identifier: 
+      </td>
+      <td>
+        <%= text_field_tag(:address_name, @billing_address.address_name, :class => "check_out_form_fields") %>
+        <%= error_messages_for_attribute(@billing_address, :address_name) %>
+      </td>
+      <td><div id="shipping_address_name_text">Address Identifier:</div></td>
+      <td>
+        <%= text_field_tag(:shipping_address_name, @shipping_address.address_name, :class => "check_out_form_fields") %>
+        <%= error_messages_for_attribute(@shipping_address, :address_name) if (@billing_address != @shipping_address) %>
+      </td>
+    </tr>
+    <tr>
       <td>First Name:</td>
       <td>
         <%= text_field_tag(:billing_first_name, @billing_address.first_name, :class => "check_out_form_fields") %>
