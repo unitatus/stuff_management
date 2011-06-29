@@ -6,40 +6,40 @@ function ship_same_toggle()
     var checked = form.same_as_billing_same_as_billing.checked
 
     form.shipping_first_name.disabled = checked
-    form.shipping_first_name.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
-    document.getElementById("shipping_first_name_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    form.shipping_first_name.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_first_name_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
     form.shipping_last_name.disabled = checked
-    form.shipping_last_name.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
-    document.getElementById("shipping_last_name_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    form.shipping_last_name.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_last_name_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
     form.shipping_day_phone.disabled = checked
-    form.shipping_day_phone.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
-    document.getElementById("shipping_day_phone_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    form.shipping_day_phone.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_day_phone_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
     form.shipping_evening_phone.disabled = checked
-    form.shipping_evening_phone.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
-    document.getElementById("shipping_evening_phone_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    form.shipping_evening_phone.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_evening_phone_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
     
     form.shipping_address_line_1.disabled = checked
-    form.shipping_address_line_1.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
-    document.getElementById("shipping_address_line_1_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    form.shipping_address_line_1.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_address_line_1_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
     form.shipping_address_line_2.disabled = checked
-    form.shipping_address_line_2.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
-    document.getElementById("shipping_address_line_2_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    form.shipping_address_line_2.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_address_line_2_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
     form.shipping_city.disabled = checked
-    form.shipping_city.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
-    document.getElementById("shipping_city_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    form.shipping_city.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_city_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
     form.shipping_state.disabled = checked
-    form.shipping_state.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
-    document.getElementById("shipping_state_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    form.shipping_state.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_state_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
     form.shipping_zip.disabled = checked
-    form.shipping_zip.setAttribute("class", ((checked) ? "check_out_form_field_disabled" : "check_out_form_fields"))
-    document.getElementById("shipping_zip_text").setAttribute("class", ((checked) ? "disabled_field" : ""))
+    form.shipping_zip.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_zip_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 }
 
 window.onload=ship_same_toggle;
@@ -149,12 +149,12 @@ window.onload=ship_same_toggle;
     <tr>
       <td>State</td>
       <td>
-        <%= select_tag(:billing_state, options_for_select(states_array, @billing_address.state), :include_blank => true) %> 
+        <%= select_tag(:billing_state, options_for_select(states_array, @billing_address.state), :include_blank => true, :class => "check_out_form_fields") %> 
         <%= error_messages_for_attribute(@billing_address, :state) %>
         </td>
       <td><div id="shipping_state_text">State</div></td>
       <td>
-        <%= select_tag(:shipping_state, options_for_select(states_array, @shipping_address.state), :include_blank => true) %> 
+        <%= select_tag(:shipping_state, options_for_select(states_array, @shipping_address.state), :include_blank => true, :class => "check_out_form_fields") %> 
         <%= error_messages_for_attribute(@shipping_address, :state) if (@billing_address != @shipping_address) %>
       </td>
     </tr>

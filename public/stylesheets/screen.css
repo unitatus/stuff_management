@@ -32,6 +32,9 @@ a:hover
 .disabled_field {
   color: grey;
 }
+.hidden_div {
+  visibility: hidden;
+}
 .oneColFixCtrHdr #container
 {        width: 980px; /* using 20px less than a full 800px width allows for brow
 ser chrome and avoids a horizontal scroll bar */
