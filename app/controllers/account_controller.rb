@@ -68,19 +68,19 @@ class AccountController < ApplicationController
   end
 
   def convert_params()
-    if (params[:num_boxes_yours_uninsured].empty?)
+    if (params[:num_boxes_yours_uninsured].blank?)
       params[:num_boxes_yours_uninsured] = "0"
     end
     
-    if (params[:num_boxes_yours_insured].empty?)
+    if (params[:num_boxes_yours_insured].blank?)
       params[:num_boxes_yours_insured] = "0"
     end
 
-    if (params[:num_boxes_ours_uninsured].empty?)
+    if (params[:num_boxes_ours_uninsured].blank?)
       params[:num_boxes_ours_uninsured] = "0"
     end
 
-    if (params[:num_boxes_ours_insured].empty?)
+    if (params[:num_boxes_ours_insured].blank?)
       params[:num_boxes_ours_insured] = "0"
     end
 
@@ -134,13 +134,98 @@ class AccountController < ApplicationController
     @billing_address = Address.new
     @shipping_address = Address.new
     @credit_card = CreditCard.new
+    @addresses = Address.all(:conditions => {:user_id => current_user.id} )
   end
 
+  # assumption: you cannot update addresses here, only add new ones or search for old ones
   def finalize_check_out
+    initialize_checkout_page
+
+    # Don't copy params if they are nil
+    if (params[:same_as_billing][:same_as_billing] != "1" && params[:shipping_address_id].blank?)
+      copy_params_to_shipping_address
+    end
+
+    # Don't copy params if they are nil
+    if (params[:billing_address_id].blank?)
+      copy_params_to_billing_address
+    end
+
+    # We have to call valid? on each object in order for error messages to be generated
+    @billing_address.valid?
+    @shipping_address.valid?
+    @credit_card.valid?
+
+    # need to check and then save, since we don't want to save any of them if any of them are invalid
+    if (!@billing_address.valid? || !@shipping_address.valid? || !@credit_card.valid? || !@billing_address.save || !@shipping_address.save)
+      render 'check_out'
+      return
+    end
+  end
+
+  def initialize_checkout_page
     @cart = Cart.find_by_user_id(current_user.id)
     @credit_card = CreditCard.new
-    @billing_address = Address.new
+    @addresses = Address.all(:conditions => {:user_id => current_user.id} )
 
+    if (params[:billing_address_id].blank?)
+      @billing_address = Address.new
+      @billing_address.user_id = current_user.id
+    else
+      @billing_address = Address.find(params[:billing_address_id])
+    end
+
+    if (params[:same_as_billing][:same_as_billing] == "1")
+      @shipping_address = @billing_address
+    else 
+      if (params[:shipping_address_id].blank?)
+        @shipping_address = Address.new
+        @shipping_address.user_id = current_user.id
+      else
+        @shipping_address = Address.find(params[:shipping_address_id])
+      end
+    end
+
+    copy_params_to_cc
+  end
+
+  def update_checkout_address
+    initialize_checkout_page
+
+    if (params[:saved_address_selected] != 'billing' && params[:billing_address_id].blank?)
+      copy_params_to_billing_address
+    end
+
+    if (params[:saved_address_selected] != 'shipping' && @shipping_address != @billing_address && params[:shipping_address_id].blank?)
+      copy_params_to_shipping_address
+    end
+
+    render 'check_out'
+  end
+
+  def copy_params_to_cc
+    @credit_card.type = params[:cc_type]
+    @credit_card.number = params[:cc_number]
+    @credit_card.security_code = params[:security_code]
+    @credit_card.expiration_month = params[:expiration_month]
+    @credit_card.expiration_year = params[:expiration_year]
+  end
+ 
+  def copy_params_to_shipping_address
+    @shipping_address.address_name = params[:shipping_address_name]
+    @shipping_address.first_name = params[:shipping_first_name]
+    @shipping_address.last_name = params[:shipping_last_name]
+    @shipping_address.day_phone = gsub_nullable(params[:shipping_day_phone], /\D/, "")
+    @shipping_address.evening_phone = gsub_nullable(params[:shipping_evening_phone], /\D/, "")
+    @shipping_address.address_line_1 = params[:shipping_address_line_1]
+    @shipping_address.address_line_2 = params[:shipping_address_line_2]
+    @shipping_address.city = params[:shipping_city]
+    @shipping_address.state = params[:shipping_state]
+    @shipping_address.zip = params[:shipping_zip]
+  end
+
+  def copy_params_to_billing_address
+    @billing_address.address_name = params[:billing_address_name]
     @billing_address.first_name = params[:billing_first_name]
     @billing_address.last_name = params[:billing_last_name]
     @billing_address.day_phone = params[:billing_day_phone].gsub(/\D/, "")
@@ -150,38 +235,13 @@ class AccountController < ApplicationController
     @billing_address.city = params[:billing_city]
     @billing_address.state = params[:billing_state]
     @billing_address.zip = params[:billing_zip]
+  end
 
-    if (params[:same_as_billing][:same_as_billing] == "1")
-      @shipping_address = @billing_address
+  def gsub_nullable(str, expr, replace)
+    if (str.nil?)
+      str
     else
-      @shipping_address = Address.new
-
-      @shipping_address.first_name = params[:shipping_first_name]
-      @shipping_address.last_name = params[:shipping_last_name]
-      @shipping_address.day_phone = params[:shipping_day_phone].gsub(/\D/, "")
-      @shipping_address.evening_phone = params[:shipping_evening_phone].gsub(/\D/, "")
-      @shipping_address.address_line_1 = params[:shipping_address_line_1]
-      @shipping_address.address_line_2 = params[:shipping_address_line_2]
-      @shipping_address.city = params[:shipping_city]
-      @shipping_address.state = params[:shipping_state]
-      @shipping_address.zip = params[:shipping_zip]
-    end
-
-    @credit_card.type = params[:cc_type]
-    @credit_card.number = params[:cc_number]
-    @credit_card.security_code = params[:security_code]
-    @credit_card.expiration_month = params[:expiration_month]
-    @credit_card.expiration_year = params[:expiration_year]
-
-    # We have to call valid? on each object in order for error messages to be generated
-    @billing_address.valid?
-    @shipping_address.valid?
-    @credit_card.valid?
-
-    # holding off on saving until debugged and fully functional
-    if (!@billing_address.valid? || !@shipping_address.valid? || !@credit_card.valid?)
-      render 'check_out'
-      return
+      str.gsub(expr, replace)
     end
   end
 end

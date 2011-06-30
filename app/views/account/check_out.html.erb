@@ -4,42 +4,58 @@ function ship_same_toggle()
     var form = document.forms[0];
 
     var checked = form.same_as_billing_same_as_billing.checked
+    var disabled = checked || (form.shipping_address_id.selectedIndex != 0)
 
-    form.shipping_first_name.disabled = checked
+    // should never be disabled
+    form.shipping_address_id.disabled = checked 
+    form.shipping_address_id.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_address_selector_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
+
+    form.shipping_address_name.disabled = disabled
+    form.shipping_address_name.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
+    document.getElementById("shipping_address_name_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
+
+    form.shipping_first_name.disabled = disabled
     form.shipping_first_name.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
     document.getElementById("shipping_first_name_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
-    form.shipping_last_name.disabled = checked
+    form.shipping_last_name.disabled = disabled
     form.shipping_last_name.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
     document.getElementById("shipping_last_name_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
-    form.shipping_day_phone.disabled = checked
+    form.shipping_day_phone.disabled = disabled
     form.shipping_day_phone.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
     document.getElementById("shipping_day_phone_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
-    form.shipping_evening_phone.disabled = checked
+    form.shipping_evening_phone.disabled = disabled
     form.shipping_evening_phone.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
     document.getElementById("shipping_evening_phone_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
     
-    form.shipping_address_line_1.disabled = checked
+    form.shipping_address_line_1.disabled = disabled
     form.shipping_address_line_1.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
     document.getElementById("shipping_address_line_1_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
-    form.shipping_address_line_2.disabled = checked
+    form.shipping_address_line_2.disabled = disabled
     form.shipping_address_line_2.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
     document.getElementById("shipping_address_line_2_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
-    form.shipping_city.disabled = checked
+    form.shipping_city.disabled = disabled
     form.shipping_city.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
     document.getElementById("shipping_city_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
-    form.shipping_state.disabled = checked
+    form.shipping_state.disabled = disabled
     form.shipping_state.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
     document.getElementById("shipping_state_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
 
-    form.shipping_zip.disabled = checked
+    form.shipping_zip.disabled = disabled
     form.shipping_zip.setAttribute("class", ((checked) ? "hidden_div" : "check_out_form_fields"))
     document.getElementById("shipping_zip_text").setAttribute("class", ((checked) ? "hidden_div" : ""))
+}
+
+function select_address(saved_address_selected) {
+  document.forms[0].action = "/account/update_checkout_address"
+  document.forms[0].saved_address_selected.value = saved_address_selected
+  document.forms[0].submit()
 }
 
 window.onload=ship_same_toggle;
@@ -47,6 +63,9 @@ window.onload=ship_same_toggle;
 <%= render 'account_nav' %>
 <div class="account_center">
 <%= form_tag("/account/finalize_check_out") do %>
+  <% billing_addr_disabled = !@billing_address.id.blank? %>
+  <% shipping_addr_disabled = !@shipping_address.id.blank? %>
+  <%= hidden_field_tag :saved_address_selected, 'none' %>
   <table class="check_out">
     <tr>
       <th colspan="2">Billing Information</th>
@@ -56,51 +75,63 @@ window.onload=ship_same_toggle;
       <td colspan=2">&nbsp;</td>
       <td colspan="2"><%= check_box("same_as_billing", "same_as_billing", {:onclick=>"ship_same_toggle();", :checked => (@billing_address == @shipping_address)}) %> Same as billing address</td>
     </tr>
+<% if @addresses %>
+    <tr>
+      <td>Select a previously used address</td>
+      <td>
+        <%= select_tag(:billing_address_id, options_from_collection_for_select(@addresses, 'id', 'address_name', @billing_address.id), :include_blank => true, :class => "check_out_form_fields", :onchange => "select_address('billing')") %> 
+      </td>
+      <td><div id="shipping_address_selector_text">Select a previously used address</td>
+      <td>
+        <%= select_tag(:shipping_address_id, options_from_collection_for_select(@addresses, 'id', 'address_name', @shipping_address.id), :include_blank => true, :class => "check_out_form_fields", :onchange => "select_address('shipping')") %> 
+      </td>
+    </tr>
+<% end %>
     <tr>
       <td>
         Address Identifier: 
       </td>
       <td>
-        <%= text_field_tag(:address_name, @billing_address.address_name, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:billing_address_name, @billing_address.address_name, :class => "check_out_form_fields", :disabled => billing_addr_disabled) %>
         <%= error_messages_for_attribute(@billing_address, :address_name) %>
       </td>
       <td><div id="shipping_address_name_text">Address Identifier:</div></td>
       <td>
-        <%= text_field_tag(:shipping_address_name, @shipping_address.address_name, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:shipping_address_name, @shipping_address.address_name, :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %>
         <%= error_messages_for_attribute(@shipping_address, :address_name) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
       <td>First Name:</td>
       <td>
-        <%= text_field_tag(:billing_first_name, @billing_address.first_name, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:billing_first_name, @billing_address.first_name, :class => "check_out_form_fields", :disabled => billing_addr_disabled) %>
         <%= error_messages_for_attribute(@billing_address, :first_name) %>
       </td>
       <td><div id="shipping_first_name_text">First Name:</div></td>
       <td>
-        <%= text_field_tag(:shipping_first_name, @shipping_address.first_name, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:shipping_first_name, @shipping_address.first_name, :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %>
         <%= error_messages_for_attribute(@shipping_address, :first_name) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
       <td>Last Name:</td>
       <td>
-        <%= text_field_tag(:billing_last_name, @billing_address.last_name, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:billing_last_name, @billing_address.last_name, :class => "check_out_form_fields", :disabled => billing_addr_disabled) %>
         <%= error_messages_for_attribute(@billing_address, :last_name) %>
       </td>
       <td><div id="shipping_last_name_text">Last Name:</div></td>
       <td>
-        <%= text_field_tag(:shipping_last_name, @shipping_address.last_name, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:shipping_last_name, @shipping_address.last_name, :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %>
         <%= error_messages_for_attribute(@shipping_address, :last_name) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
      <td>Day Time Phone:</td>
-     <td><%= text_field_tag(:billing_day_phone, number_to_phone(@billing_address.day_phone), :class => "check_out_form_fields") %>
+     <td><%= text_field_tag(:billing_day_phone, number_to_phone(@billing_address.day_phone), :class => "check_out_form_fields", :disabled => billing_addr_disabled) %>
          <%= error_messages_for_attribute(@billing_address, :day_phone) %>
      </td>
      <td><div id="shipping_day_phone_text">Day Time Phone:</div></td>
-     <td><%= text_field_tag(:shipping_day_phone, number_to_phone(@shipping_address.day_phone), :class => "check_out_form_fields") %>
+     <td><%= text_field_tag(:shipping_day_phone, number_to_phone(@shipping_address.day_phone), :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %>
          <%= error_messages_for_attribute(@shipping_address, :day_phone) if (@billing_address != @shipping_address) %>
      </td>
     </tr>
@@ -111,12 +142,12 @@ window.onload=ship_same_toggle;
     <tr>
      <td>Evening Phone:</td>
      <td>
-         <%= text_field_tag(:billing_evening_phone, number_to_phone(@billing_address.evening_phone), :class => "check_out_form_fields") %>
+         <%= text_field_tag(:billing_evening_phone, number_to_phone(@billing_address.evening_phone), :class => "check_out_form_fields", :disabled => billing_addr_disabled) %>
          <%= error_messages_for_attribute(@billing_address, :evening_phone) %>
      </td>
      <td><div id="shipping_evening_phone_text">Evening Phone:</div></td>
      <td>
-         <%= text_field_tag(:shipping_evening_phone, number_to_phone(@shipping_address.evening_phone), :class => "check_out_form_fields") %>
+         <%= text_field_tag(:shipping_evening_phone, number_to_phone(@shipping_address.evening_phone), :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %>
          <%= error_messages_for_attribute(@shipping_address, :evening_phone) if (@billing_address != @shipping_address) %>
      </td>
     </tr>
@@ -127,60 +158,60 @@ window.onload=ship_same_toggle;
     <tr>
       <td>Address Line 1</td>
       <td>
-        <%= text_field_tag(:billing_address_line_1, @billing_address.address_line_1, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:billing_address_line_1, @billing_address.address_line_1, :class => "check_out_form_fields", :disabled => billing_addr_disabled) %>
         <%= error_messages_for_attribute(@billing_address, :address_line_1) %>
       </td>
       <td><div id="shipping_address_line_1_text">Address Line 1</div></td>
       <td>
-        <%= text_field_tag(:shipping_address_line_1, @shipping_address.address_line_1, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:shipping_address_line_1, @shipping_address.address_line_1, :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %>
         <%= error_messages_for_attribute(@shipping_address, :address_line_1) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
       <td>Address Line 2</td>
       <td>
-        <%= text_field_tag(:billing_address_line_2, @billing_address.address_line_2, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:billing_address_line_2, @billing_address.address_line_2, :class => "check_out_form_fields", :disabled => billing_addr_disabled) %>
         <%= error_messages_for_attribute(@billing_address, :address_line_2) %>
       </td>
       <td><div id="shipping_address_line_2_text">Address Line 2</div></td>
       <td>
-        <%= text_field_tag(:shipping_address_line_2, @shipping_address.address_line_2, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:shipping_address_line_2, @shipping_address.address_line_2, :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %>
         <%= error_messages_for_attribute(@shipping_address, :address_line_2) if (@billing_address != @shipping_address) %>
        </td>
     </tr>
     <tr>
       <td>City</td>
       <td>
-        <%= text_field_tag(:billing_city, @billing_address.city, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:billing_city, @billing_address.city, :class => "check_out_form_fields", :disabled => billing_addr_disabled) %>
         <%= error_messages_for_attribute(@billing_address, :city) %>
       </td>
       <td><div id="shipping_city_text">City</div></td>
       <td>
-        <%= text_field_tag(:shipping_city, @shipping_address.city, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:shipping_city, @shipping_address.city, :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %>
         <%= error_messages_for_attribute(@shipping_address, :city) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
       <td>State</td>
       <td>
-        <%= select_tag(:billing_state, options_for_select(states_array, @billing_address.state), :include_blank => true, :class => "check_out_form_fields") %> 
+        <%= select_tag(:billing_state, options_for_select(states_array, @billing_address.state), :include_blank => true, :class => "check_out_form_fields", :disabled => billing_addr_disabled) %> 
         <%= error_messages_for_attribute(@billing_address, :state) %>
         </td>
       <td><div id="shipping_state_text">State</div></td>
       <td>
-        <%= select_tag(:shipping_state, options_for_select(states_array, @shipping_address.state), :include_blank => true, :class => "check_out_form_fields") %> 
+        <%= select_tag(:shipping_state, options_for_select(states_array, @shipping_address.state), :include_blank => true, :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %> 
         <%= error_messages_for_attribute(@shipping_address, :state) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
     <tr>
       <td>Zip</td>
       <td>
-        <%= text_field_tag(:billing_zip, @billing_address.zip, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:billing_zip, @billing_address.zip, :class => "check_out_form_fields", :disabled => billing_addr_disabled) %>
         <%= error_messages_for_attribute(@billing_address, :zip) %>
       </td>
       <td><div id="shipping_zip_text">Zip</div></td>
       <td>
-        <%= text_field_tag(:shipping_zip, @shipping_address.zip, :class => "check_out_form_fields") %>
+        <%= text_field_tag(:shipping_zip, @shipping_address.zip, :class => "check_out_form_fields", :disabled => shipping_addr_disabled) %>
         <%= error_messages_for_attribute(@shipping_address, :zip) if (@billing_address != @shipping_address) %>
       </td>
     </tr>
