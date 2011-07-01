@@ -133,12 +133,41 @@ class AccountController < ApplicationController
     @cart = Cart.find_by_user_id(current_user.id)
     @billing_address = Address.new
     @shipping_address = Address.new
-    @credit_card = CreditCard.new
     @addresses = Address.all(:conditions => {:user_id => current_user.id} )
+    @order = Order.new
   end
 
-  # assumption: you cannot update addresses here, only add new ones or search for old ones
+  # assumption: you cannot update addresses here, only add new ones 
+  # or search for old ones
   def finalize_check_out
+    manage_address_create
+
+    manage_order_create
+
+    # Or's work in sequence, so with this if check we avoid having lots of 
+    # nested if's.
+    if (!@billing_address.valid? || !@shipping_address.valid? || !@order.valid? || !@billing_address.save || !@shipping_address.save || !@order.save || !@order.purchase || !@cart.save)
+      render 'check_out'
+    end
+  end
+
+  def manage_order_create
+    @order = @cart.build_order(params[:order])
+    @order.ip_address = request.remote_ip
+    @order.billing_address_id = @billing_address.id
+
+    @order.valid?
+
+    # Create order lines for each cart item
+    # Create a charge for the total order amount and associate it with the user
+    # Use the order to create credit card transaction
+    # Save the response as a credit card transaction
+    # If the response was not a success, do the logic to say so
+    # If the response was a success, create a payment for the user's account, clear out the cart, and render the next page
+  end
+
+  def manage_address_create
+    # In case this is a refresh
     initialize_checkout_page
 
     # Don't copy params if they are nil
@@ -151,21 +180,13 @@ class AccountController < ApplicationController
       copy_params_to_billing_address
     end
 
-    # We have to call valid? on each object in order for error messages to be generated
+    # We have to call valid? on each object in order for error messages to be generated. Can't rely on next if, b/c first might fail and second won't trigger.
     @billing_address.valid?
     @shipping_address.valid?
-    @credit_card.valid?
-
-    # need to check and then save, since we don't want to save any of them if any of them are invalid
-    if (!@billing_address.valid? || !@shipping_address.valid? || !@credit_card.valid? || !@billing_address.save || !@shipping_address.save)
-      render 'check_out'
-      return
-    end
   end
 
   def initialize_checkout_page
     @cart = Cart.find_by_user_id(current_user.id)
-    @credit_card = CreditCard.new
     @addresses = Address.all(:conditions => {:user_id => current_user.id} )
 
     if (params[:billing_address_id].blank?)
@@ -185,12 +206,11 @@ class AccountController < ApplicationController
         @shipping_address = Address.find(params[:shipping_address_id])
       end
     end
-
-    copy_params_to_cc
   end
 
   def update_checkout_address
     initialize_checkout_page
+    @order = Order.new
 
     if (params[:saved_address_selected] != 'billing' && params[:billing_address_id].blank?)
       copy_params_to_billing_address
@@ -203,14 +223,6 @@ class AccountController < ApplicationController
     render 'check_out'
   end
 
-  def copy_params_to_cc
-    @credit_card.type = params[:cc_type]
-    @credit_card.number = params[:cc_number]
-    @credit_card.security_code = params[:security_code]
-    @credit_card.expiration_month = params[:expiration_month]
-    @credit_card.expiration_year = params[:expiration_year]
-  end
- 
   def copy_params_to_shipping_address
     @shipping_address.address_name = params[:shipping_address_name]
     @shipping_address.first_name = params[:shipping_first_name]

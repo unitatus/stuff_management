@@ -46,4 +46,10 @@ class Address < ActiveRecord::Base
   def skip_evening_content_validation
     evening_phone.empty?
   end
+
+  # Hard coded country for now
+  def new
+    country = "US"
+    super
+  end
 end

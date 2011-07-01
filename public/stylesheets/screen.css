@@ -23,11 +23,11 @@ a:hover
         color: Red;
 }
 .field_with_errors {
-  background-color: red;
-  display: table;
+  // background-color: red;
+  // display: table;
 }
 .field_with_errors label {
-  color: #fff;
+  // color: #fff;
 }
 .disabled_field {
   color: grey;

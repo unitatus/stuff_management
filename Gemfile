@@ -10,6 +10,7 @@ gem 'devise'
 gem 'paperclip'
 gem 'validatable'
 gem 'activemerchant'
+gem 'authorize-net'
 
 group :development do
   gem 'rspec-rails'

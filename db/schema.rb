@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110629184120) do
+ActiveRecord::Schema.define(:version => 20110701050616) do
 
   create_table "addresses", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20110629184120) do
     t.datetime "updated_at"
     t.string   "address_name"
     t.integer  "user_id"
+    t.string   "country"
   end
 
   create_table "boxes", :force => true do |t|
@@ -55,6 +56,45 @@ ActiveRecord::Schema.define(:version => 20110629184120) do
   end
 
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
+
+  create_table "orders", :force => true do |t|
+    t.integer  "cart_id"
+    t.string   "ip_address"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "billing_address_id"
+    t.integer  "shipping_address_id"
+  end
+
+  add_index "orders", ["cart_id"], :name => "index_orders_on_cart_id"
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
+  create_table "payment_profiles", :force => true do |t|
+    t.string   "identifier"
+    t.string   "last_four_digits"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payment_profiles", ["user_id"], :name => "index_payment_profiles_on_user_id"
+
+  create_table "payment_transactions", :force => true do |t|
+    t.integer  "order_id"
+    t.string   "action"
+    t.integer  "amount"
+    t.boolean  "success"
+    t.string   "authorization"
+    t.string   "message"
+    t.text     "params"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payment_transactions", ["order_id"], :name => "index_payment_transactions_on_order_id"
+  add_index "payment_transactions", ["user_id"], :name => "index_payment_transactions_on_user_id"
 
   create_table "photos", :force => true do |t|
     t.integer  "stored_item_id"

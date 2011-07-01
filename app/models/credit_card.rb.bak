@@ -1,4 +1,5 @@
-class CreditCard < ActiveRecord::Base
+class CreditCard
+  include Validatable
   
   attr_accessor :type, :number, :security_code, :expiration_month, :expiration_year, :first_name, :last_name
 

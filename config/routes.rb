@@ -1,5 +1,7 @@
 StuffManagement::Application.routes.draw do
 
+  resources :orders
+
   resources :products
 
   resources :boxes

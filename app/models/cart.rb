@@ -11,6 +11,7 @@
 
 class Cart < ActiveRecord::Base
   has_many :cart_items, :autosave => true
+  has_one :order
 
   def estimated_total
     total_estimate = 0
@@ -34,5 +35,10 @@ class Cart < ActiveRecord::Base
     end
 
     total_qty
+  end
+
+  def mark_ordered
+    status = "ordered"
+    ordered_at = Time.now
   end
 end
