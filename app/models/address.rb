@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110629184120
+# Schema version: 20110701051132
 #
 # Table name: addresses
 #
@@ -18,6 +18,7 @@
 #  updated_at     :datetime
 #  address_name   :string(255)
 #  user_id        :integer
+#  country        :string(255)
 #
 
 class Address < ActiveRecord::Base

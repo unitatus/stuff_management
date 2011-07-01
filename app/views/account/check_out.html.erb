@@ -39,7 +39,7 @@ function ship_same_toggle()
 	</head>
 	<body>
 		<div class="account_center">
-			<% form_for @order, :url => "/account/finalize_check_out" do |f| %><% billing_addr_disabled = !@billing_address.id.blank? %><% shipping_addr_disabled = !@shipping_address.id.blank? %><%= hidden_field_tag :saved_address_selected, 'none' %>
+			<%= form_for @order, :url => "/account/finalize_check_out" do |f| %><% billing_addr_disabled = !@billing_address.id.blank? %><% shipping_addr_disabled = !@shipping_address.id.blank? %><%= hidden_field_tag :saved_address_selected, 'none' %>
 			<table class="check_out">
 				<tr>
 					<th>
