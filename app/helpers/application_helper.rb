@@ -18,13 +18,6 @@ module ApplicationHelper
     raw html
   end
 
-  def cc_types
-    ['American Express',
-     'Discover',
-     'Mastercard',
-     'Visa']
-  end
-
   def states_array
     ['AK',
 	'AL',

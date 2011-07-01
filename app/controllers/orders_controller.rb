@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.xml
   def create
-    @cart = Cart.find_by_user_id(current_user.id)
+    @cart = Cart.find_active_by_user_id(current_user.id)
     @order = @cart.build_order(params[:order])
     @order.ip_address = request.remote_ip
 

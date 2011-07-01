@@ -8,11 +8,12 @@ class AccountController < ApplicationController
     @your_box_insured = Product.find(Rails.application.config.your_box_insured_product_id)
     @our_box_insured = Product.find(Rails.application.config.our_box_insured_product_id)
 
-    @cart = Cart.find_by_user_id(current_user.id)
+    @cart = Cart.find_active_by_user_id(current_user.id)
+    @cart = Cart.new unless @cart
   end
 
   def order_boxes
-    cart = Cart.find_by_user_id(current_user.id)
+    cart = Cart.find_active_by_user_id(current_user.id)
     if (cart.nil?)
       cart = Cart.new
       cart.user_id = current_user.id
@@ -88,7 +89,7 @@ class AccountController < ApplicationController
   end
 
   def cart
-    @cart = Cart.find_by_user_id(current_user.id)
+    @cart = Cart.find_active_by_user_id(current_user.id)
     if (@cart.nil?)
       @cart = Cart.new
     end
@@ -130,7 +131,7 @@ class AccountController < ApplicationController
   end
 
   def check_out
-    @cart = Cart.find_by_user_id(current_user.id)
+    @cart = Cart.find_active_by_user_id(current_user.id)
     @billing_address = Address.new
     @shipping_address = Address.new
     @addresses = Address.all(:conditions => {:user_id => current_user.id} )
@@ -146,15 +147,27 @@ class AccountController < ApplicationController
 
     # Or's work in sequence, so with this if check we avoid having lots of 
     # nested if's.
-    if (!@billing_address.valid? || !@shipping_address.valid? || !@order.valid? || !@billing_address.save || !@shipping_address.save || !@order.save || !@order.purchase || !@cart.save)
+    if (!@billing_address.valid? || !@shipping_address.valid? || !@order.valid? || !@billing_address.save || !@shipping_address.save || !@order.save)
       render 'check_out'
     end
+
+    if @order.purchase
+      @cart.mark_ordered
+      if !@cart.save
+        render 'check_out'
+      end
+    else
+      render 'check_out'
+    end
+
   end
 
   def manage_order_create
     @order = @cart.build_order(params[:order])
+
     @order.ip_address = request.remote_ip
     @order.billing_address_id = @billing_address.id
+    @order.user_id = current_user.id
 
     @order.valid?
 
@@ -186,7 +199,7 @@ class AccountController < ApplicationController
   end
 
   def initialize_checkout_page
-    @cart = Cart.find_by_user_id(current_user.id)
+    @cart = Cart.find_active_by_user_id(current_user.id)
     @addresses = Address.all(:conditions => {:user_id => current_user.id} )
 
     if (params[:billing_address_id].blank?)

@@ -13,6 +13,8 @@ class Cart < ActiveRecord::Base
   has_many :cart_items, :autosave => true
   has_one :order
 
+  attr_accessible :id
+
   def estimated_total
     total_estimate = 0
 
@@ -38,7 +40,21 @@ class Cart < ActiveRecord::Base
   end
 
   def mark_ordered
-    status = "ordered"
-    ordered_at = Time.now
+    self.status = "ordered"
+    self.ordered_at = Time.now
+  end
+
+  def Cart.find_by_user_id(user_id)
+    raise "Do not use this method. You must specify find_active_by_user_id or find_by_user_id_and_status, or implement a new method"
+  end
+
+  def Cart.find_active_by_user_id(user_id)
+    Cart.find_by_user_id_and_status(user_id, "active")
+  end
+
+  def Cart.new()
+    cart = super
+    cart.status = "active"
+    cart
   end
 end

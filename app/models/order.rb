@@ -58,4 +58,5 @@ class Order < ActiveRecord::Base
       :last_name => card_last_name
     )
   end
+
 end
